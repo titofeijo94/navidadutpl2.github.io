@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación Navidad UTPL Zona 4</title>
+    
+    <!-- Fuentes Premium -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Paleta de Colores Institucional & Navideña */
+            --primary: #003366; /* Azul UTPL Profundo */
+            --primary-dark: #002244;
+            --gold: #C5A059;   /* Dorado Elegante */
+            --gold-light: #E5C585;
+            --gold-gradient: linear-gradient(135deg, #C5A059 0%, #E5C585 50%, #B08D55 100%);
+            --white: #ffffff;
+            --bg-body: #f3f4f6;
+            --text-dark: #1a1a1a;
+            --text-grey: #555555;
+        }
+
+        * {
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-body);
+            /* Patrón sutil de fondo */
+            background-image: 
+                radial-gradient(var(--gold-light) 1px, transparent 1px),
+                radial-gradient(var(--gold-light) 1px, transparent 1px);
+            background-position: 0 0, 25px 25px;
+            background-size: 50px 50px;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* --- Contenedor Principal (Tarjeta) --- */
+        .card-wrapper {
+            padding: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 500px;
+            background-color: var(--white);
+            position: relative;
+            box-shadow: 0 30px 60px -10px rgba(0, 51, 102, 0.25); /* Sombra azulada elegante */
+            overflow: hidden;
+            border-radius: 4px; /* Bordes menos redondeados para formalidad */
+        }
+
+        /* Marco Dorado Decorativo Interno */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            right: 12px;
+            bottom: 12px;
+            border: 1px solid rgba(197, 160, 89, 0.3); /* Borde dorado muy sutil */
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        /* --- Header con Animación --- */
+        .header {
+            background-color: var(--primary);
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Efecto de destellos (nieve dorada) */
+        .sparkle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background-color: var(--gold-light);
+            border-radius: 50%;
+            opacity: 0;
+            animation: snowfall 5s linear infinite;
+        }
+
+        @keyframes snowfall {
+            0% { transform: translateY(-10px); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translateY(150px); opacity: 0; }
+        }
+
+        .logo-container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo-utpl {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 28px;
+            color: var(--white);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .logo-sub {
+            display: block;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 16px;
+            color: var(--gold-light);
+            letter-spacing: 4px;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        /* Separador dorado */
+        .gold-divider {
+            height: 3px;
+            background: var(--gold-gradient);
+            width: 100%;
+            position: relative;
+            z-index: 6;
+        }
+
+        /* --- Contenido --- */
+        .content {
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            z-index: 6; /* Sobre el borde decorativo */
+        }
+
+        /* Títulos */
+        .pre-header {
+            text-transform: uppercase;
+            font-size: 10px;
+            letter-spacing: 3px;
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: inline-block;
+            border-bottom: 1px solid var(--gold);
+            padding-bottom: 3px;
+        }
+
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--primary);
+            font-size: 42px; /* Más grande y elegante */
+            margin: 5px 0 15px 0;
+            font-weight: 600;
+            line-height: 1;
+        }
+
+        h1 span {
+            display: block;
+            font-size: 0.6em;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            color: var(--text-grey);
+            margin-top: 5px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Frase */
+        .quote-container {
+            margin: 25px auto;
+            position: relative;
+            max-width: 90%;
+        }
+
+        .quote-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 18px;
+            color: #444;
+            line-height: 1.4;
+        }
+        
+        .ornament-icon {
+            color: var(--gold);
+            font-size: 20px;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+
+        /* Detalles Grid */
+        .details-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            margin: 30px 0;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            padding: 20px 0;
+        }
+
+        .detail-group {
+            text-align: center;
+        }
+
+        .detail-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            color: #999;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .detail-value {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 13px;
+        }
+
+        /* --- Botones --- */
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            border: none;
+            padding: 16px 20px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-gold {
+            background: var(--gold-gradient);
+            color: var(--white);
+            box-shadow: 0 10px 20px -5px rgba(197, 160, 89, 0.4);
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 25px -5px rgba(197, 160, 89, 0.5);
+        }
+
+        .btn-links {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        /* --- Footer --- */
+        .footer {
+            margin-top: 40px;
+            font-size: 11px;
+            color: #888;
+        }
+
+        .signature {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 16px;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        /* --- MODALES --- */
+        .modal-backdrop {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 30, 60, 0.4);
+            backdrop-filter: blur(8px); /* Efecto Glass elegante */
+            z-index: 1000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .modal-active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: #fff;
+            width: 90%;
+            max-width: 450px;
+            padding: 40px 30px;
+            position: relative;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+            transform: translateY(20px);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-align: center;
+            border-top: 4px solid var(--gold);
+        }
+
+        .modal-active .modal-content {
+            transform: translateY(0);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #999;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .close-modal:hover { color: var(--primary); }
+
+        .modal-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 26px;
+            color: var(--primary);
+            margin: 0 0 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+
+        /* Timeline en Modal */
+        .timeline-elegant {
+            text-align: left;
+            border-left: 2px solid var(--gold-light);
+            padding-left: 25px;
+            margin-left: 15px;
+        }
+
+        .t-item {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .t-item::before {
+            content: '';
+            position: absolute;
+            left: -32px;
+            top: 4px;
+            width: 12px;
+            height: 12px;
+            background: var(--white);
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+        }
+
+        .t-time {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        .t-desc {
+            font-size: 14px;
+            color: #444;
+            font-weight: 500;
+        }
+
+        /* Iconos SVG */
+        .icon-svg {
+            width: 18px;
+            height: 18px;
+            stroke-width: 1.5;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="card-wrapper">
+    <div class="card">
+        
+        <!-- Header con animación de destellos -->
+        <div class="header">
+            <!-- Destellos generados por JS o CSS fijos -->
+            <div class="sparkle" style="top: 10%; left: 20%; animation-delay: 0s;"></div>
+            <div class="sparkle" style="top: 30%; left: 80%; animation-delay: 1.5s;"></div>
+            <div class="sparkle" style="top: 60%; left: 40%; animation-delay: 2.5s;"></div>
+            <div class="sparkle" style="top: 20%; left: 90%; animation-delay: 3.5s;"></div>
+            
+            <div class="logo-container">
+                <div class="logo-utpl">UTPL</div>
+                <span class="logo-sub">Zona 4 • Manabí</span>
+            </div>
+        </div>
+        
+        <div class="gold-divider"></div>
+
+        <div class="content">
+            <div class="ornament-icon">✦</div>
+            <div class="pre-header">Invitación Corporativa</div>
+            
+            <h1>Cena de Navidad <span>Fin de Año 2025</span></h1>
+
+            <div class="quote-container">
+                <p class="quote-text">
+                    "Que la unión y el espíritu navideño renueven nuestro compromiso y fortalezcan nuestros lazos. Un momento para celebrar juntos nuestros logros."
+                </p>
+            </div>
+
+            <!-- Datos Clave -->
+            <div class="details-row">
+                <div class="detail-group">
+                    <div class="detail-label">Fecha</div>
+                    <div class="detail-value">Dic 12</div>
+                </div>
+                <div class="detail-group">
+                    <div class="detail-label">Hora</div>
+                    <div class="detail-value">17:00 PM</div>
+                </div>
+                <div class="detail-group">
+                    <div class="detail-label">Lugar</div>
+                    <div class="detail-value">Hotel Poseidon</div>
+                </div>
+            </div>
+
+            <!-- Botones -->
+            <div class="btn-container">
+                <button class="btn btn-gold" onclick="confirmar()">
+                    Confirmar Asistencia
+                    <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                
+                <div class="btn-links">
+                    <button class="btn btn-outline" onclick="toggleModal('modal-dress')">Vestimenta</button>
+                    <button class="btn btn-outline" onclick="toggleModal('modal-itinerary')">Itinerario</button>
+                </div>
+            </div>
+
+            <div class="footer">
+                <div class="signature">Karina Rojas</div>
+                Dirección Zona 4
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Vestimenta -->
+<div id="modal-dress" class="modal-backdrop" onclick="toggleModal('modal-dress')">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <button class="close-modal" onclick="toggleModal('modal-dress')">&times;</button>
+        <h3 class="modal-title">Código de Vestimenta</h3>
+        
+        <div style="text-align: left; padding: 0 10px;">
+            <div style="display: flex; gap: 15px; margin-bottom: 25px; align-items: start;">
+                <div style="background: var(--bg-body); padding: 10px; border-radius: 50%;">
+                   <svg class="icon-svg" style="color: var(--primary);" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.38 3.4a1.6 1.6 0 0 1 .4 1.6l-1.9 6.22a2.33 2.33 0 0 1-2.2 1.66h-9.36a2.33 2.33 0 0 1-2.2-1.66L3.22 5a1.6 1.6 0 0 1 1.76-2.08l1.63.26A2.3 2.3 0 0 0 8.86 2h6.28a2.3 2.3 0 0 0 2.25 1.18z"></path></svg>
+                </div>
+                <div>
+                    <h4 style="margin: 0; color: var(--primary); font-family: 'Cormorant Garamond', serif; font-size: 18px;">White Party</h4>
+                    <p style="margin: 5px 0 0; font-size: 13px; color: #666;">Se solicita vestimenta estrictamente blanca.</p>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 15px; align-items: start;">
+                 <div style="background: var(--bg-body); padding: 10px; border-radius: 50%;">
+                   <svg class="icon-svg" style="color: var(--gold);" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 22v-6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v6"/><path d="M4 16c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+                </div>
+                <div>
+                    <h4 style="margin: 0; color: var(--primary); font-family: 'Cormorant Garamond', serif; font-size: 18px;">Calzado Cómodo</h4>
+                    <p style="margin: 5px 0 0; font-size: 13px; color: #666;">Evento sobre arena. Por favor, <strong>evitar tacones</strong>. Sandalias formales recomendadas.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Itinerario -->
+<div id="modal-itinerary" class="modal-backdrop" onclick="toggleModal('modal-itinerary')">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <button class="close-modal" onclick="toggleModal('modal-itinerary')">&times;</button>
+        <h3 class="modal-title">Itinerario Oficial</h3>
+        
+        <div class="timeline-elegant">
+            <div class="t-item">
+                <span class="t-time">15:00</span>
+                <div class="t-desc">Check-in Hotel Poseidon</div>
+            </div>
+            <div class="t-item">
+                <span class="t-time">17:00</span>
+                <div class="t-desc">Inicio del Evento & Bienvenida</div>
+            </div>
+            <div class="t-item">
+                <span class="t-time">19:00</span>
+                <div class="t-desc">Cena Navideña Empresarial</div>
+            </div>
+             <div class="t-item">
+                <span class="t-time">NOCHE</span>
+                <div class="t-desc">Hospedaje en Hotel</div>
+            </div>
+            <div class="t-item">
+                <span class="t-time">08:00</span>
+                <div class="t-desc">Desayuno Buffet</div>
+            </div>
+            <div class="t-item">
+                <span class="t-time">12:00</span>
+                <div class="t-desc">Check-out</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleModal(id) {
+        const modal = document.getElementById(id);
+        if (modal.classList.contains('modal-active')) {
+            modal.classList.remove('modal-active');
+            setTimeout(() => { modal.style.display = 'none'; }, 400); // Wait for transition
+        } else {
+            modal.style.display = 'flex';
+            // Force reflow
+            modal.offsetHeight;
+            modal.classList.add('modal-active');
+        }
+    }
+
+    function confirmar() {
+        // Aquí iría el enlace real, ej: window.open('https://forms.office.com/...', '_blank');
+        alert("¡Redirigiendo a formulario de confirmación!");
+    }
+</script>
+
+</body>
+</html>
