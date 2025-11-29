@@ -3,739 +3,578 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invitación Navidad UTPL Zona 4</title>
+    <title>UTPL - Gala de Navidad</title>
     
-    <!-- Fuentes Premium -->
+    <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Iconos -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
     <style>
         :root {
-            /* Paleta de Colores Institucional & Navideña */
+            /* Colores Intro (Sobre) */
+            --utpl-navy: #002855;
+            --utpl-navy-dark: #001a38;
+            --gold-leaf: #d4af37;
+            --bg-gradient-inner: #050a14;
+
+            /* Colores Invitación (Carta Restaurada) */
             --primary: #003366; /* Azul UTPL Profundo */
             --primary-dark: #002244;
             --gold: #C5A059;   /* Dorado Elegante */
             --gold-light: #E5C585;
             --gold-gradient: linear-gradient(135deg, #C5A059 0%, #E5C585 50%, #B08D55 100%);
             --white: #ffffff;
-            --bg-body: #f0f2f5;
+            --bg-body: #f3f4f6;
             --text-dark: #1a1a1a;
             --text-grey: #555555;
         }
 
-        * {
-            box-sizing: border-box;
-            outline: none;
-            -webkit-tap-highlight-color: transparent;
-        }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
-            margin: 0;
-            padding: 0;
-            background-color: var(--bg-body);
-            /* Patrón sutil de fondo */
-            background-image: radial-gradient(#d4af37 0.5px, transparent 0.5px), radial-gradient(#d4af37 0.5px, #f0f2f5 0.5px);
-            background-size: 20px 20px;
-            background-position: 0 0, 10px 10px;
             font-family: 'Montserrat', sans-serif;
-            color: var(--text-dark);
+            background: radial-gradient(circle at center, #1a2a40 0%, #050a14 100%);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        /* --- Contenedor Principal (Tarjeta) --- */
-        .card-wrapper {
-            padding: 20px;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            perspective: 1000px;
-        }
-
-        .card {
-            width: 100%;
-            max-width: 500px;
-            background-color: var(--white);
-            /* Textura de papel sutil */
-            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-            position: relative;
-            box-shadow: 0 25px 50px -12px rgba(0, 51, 102, 0.25);
+            margin: 0;
             overflow: hidden;
-            border-radius: 2px;
-            transition: transform 0.3s ease;
         }
 
-        /* Marco Dorado Decorativo Interno */
-        .card::before {
-            content: '';
+        /* =========================================
+           1. ESCENA DEL SOBRE (INTRO)
+           ========================================= */
+        #intro-scene {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; justify-content: center; align-items: center;
+            z-index: 2000;
+            perspective: 1500px;
+            transition: opacity 1.2s ease, visibility 1.2s;
+        }
+
+        /* Nieve */
+        .snowflake {
             position: absolute;
-            top: 10px; left: 10px; right: 10px; bottom: 10px;
-            border: 1px solid rgba(197, 160, 89, 0.25);
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 1rem;
+            top: -50px;
+            animation: fall linear infinite;
+            z-index: 0;
             pointer-events: none;
-            z-index: 5;
+        }
+        @keyframes fall {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 0.8; }
+            100% { transform: translateY(110vh) translateX(20px); opacity: 0; }
         }
 
-        /* --- Header con Animación --- */
+        /* Contenedor del Sobre */
+        .wrapper {
+            position: relative;
+            width: 320px; /* Ajustado para móviles */
+            height: 220px;
+            z-index: 10;
+            transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        @media (min-width: 768px) {
+            .wrapper { width: 520px; height: 340px; }
+        }
+
+        .envelope {
+            position: relative; width: 100%; height: 100%;
+            background: var(--utpl-navy);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            border-radius: 4px;
+            transform-style: preserve-3d; /* Importante para 3D */
+        }
+
+        /* Interior del sobre */
+        .envelope-inner {
+            position: absolute; top: 2px; left: 2px; right: 2px; bottom: 2px;
+            background: #0b1424; z-index: 1; border-radius: 3px;
+        }
+
+        /* Tarjeta Preview (La que sale del sobre) */
+        .card-preview {
+            position: absolute;
+            width: 90%; height: 90%;
+            left: 5%; top: 50%; 
+            transform: translateY(-50%); /* Centrado verticalmente */
+            background: #fff;
+            z-index: 2; /* Entre el fondo y las solapas */
+            transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+            border-top: 5px solid var(--gold-leaf);
+            display: flex; justify-content: center; padding-top: 30px;
+        }
+        .card-preview span {
+            font-family: 'Cinzel', serif; font-size: 24px; color: var(--utpl-navy); 
+            font-weight: 700; letter-spacing: 4px; opacity: 0.3;
+        }
+
+        /* Solapas */
+        .flap {
+            position: absolute; width: 0; height: 0; border-style: solid; pointer-events: none;
+        }
+
+        .flap-left {
+            top: 0; left: 0; bottom: 0;
+            border-width: 110px 0 110px 160px; /* Mobile */
+            border-color: transparent transparent transparent var(--utpl-navy);
+            z-index: 20; filter: brightness(1.1);
+        }
+        .flap-right {
+            top: 0; right: 0; bottom: 0;
+            border-width: 110px 160px 110px 0; /* Mobile */
+            border-color: transparent var(--utpl-navy-dark) transparent transparent;
+            z-index: 20;
+        }
+        .flap-bottom {
+            bottom: 0; left: 0;
+            border-width: 0 160px 120px 160px; /* Mobile */
+            border-color: transparent transparent var(--utpl-navy) transparent;
+            z-index: 21; filter: drop-shadow(0 -2px 5px rgba(0,0,0,0.3));
+        }
+
+        /* Solapa Superior (Animada) */
+        .flap-top {
+            top: 0; left: 0;
+            border-width: 130px 160px 0 160px; /* Mobile */
+            border-color: var(--utpl-navy-dark) transparent transparent transparent;
+            z-index: 30;
+            transform-origin: top;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), z-index 0.1s linear 0.4s;
+            filter: drop-shadow(0 5px 5px rgba(0,0,0,0.3));
+        }
+
+        /* Ajustes de tamaño de solapa para Desktop */
+        @media (min-width: 768px) {
+            .flap-left { border-width: 170px 0 170px 270px; }
+            .flap-right { border-width: 170px 270px 170px 0; }
+            .flap-bottom { border-width: 0 260px 175px 260px; }
+            .flap-top { border-width: 180px 260px 0 260px; }
+        }
+
+        /* Sello */
+        .seal {
+            position: absolute;
+            top: -100px; /* Posición relativa al borde de la solapa top (mobile) */
+            left: 50%; transform: translate(-50%, -50%);
+            width: 70px; height: 70px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #e6cf8b, #bfa058, #7a5e20);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+            z-index: 31;
+            display: flex; justify-content: center; align-items: center;
+            cursor: pointer; pointer-events: all;
+            transition: opacity 0.5s;
+            border: 2px solid rgba(255,255,255,0.1);
+        }
+        @media (min-width: 768px) {
+            .seal { top: -140px; width: 90px; height: 90px; } /* Ajuste desktop */
+        }
+
+        .seal span {
+            font-family: 'Cinzel', serif; font-weight: 700; font-size: 1rem; color: #5c4213; text-shadow: 0 1px 0 rgba(255,255,255,0.3);
+        }
+
+        .click-hint {
+            position: absolute; bottom: -60px; width: 100%; text-align: center;
+            color: rgba(255,255,255,0.5); font-family: 'Montserrat', sans-serif; font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+            animation: pulse 2s infinite; pointer-events: none;
+        }
+        @keyframes pulse { 50% { opacity: 0.4; } }
+
+        /* --- CLASES DE ANIMACIÓN (JS) --- */
+        .wrapper.open .flap-top {
+            transform: rotateX(180deg);
+            z-index: 1; /* Pasa detrás de la tarjeta */
+        }
+        .wrapper.open .seal {
+            opacity: 0; pointer-events: none;
+        }
+        .wrapper.open .card-preview {
+            transform: translateY(-120%); /* La tarjeta sale hacia arriba */
+            transition-delay: 0.4s; /* Espera a que abra */
+            z-index: 25; /* Pasa por encima del bolsillo bottom */
+        }
+        .wrapper.zoom-out {
+            transform: scale(2) translateY(50px); /* Efecto de acercamiento */
+            opacity: 0; /* Desvanecer */
+        }
+
+        /* =========================================
+           2. INVITACIÓN FINAL (DISEÑO RESTAURADO)
+           ========================================= */
+        #final-interface {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; justify-content: center; align-items: center;
+            opacity: 0; visibility: hidden;
+            transition: opacity 1.5s ease;
+            z-index: 100;
+            background-color: var(--bg-body); /* Fondo final claro */
+            background-image: radial-gradient(var(--gold-light) 1px, transparent 1px); /* Patrón puntos */
+            background-size: 30px 30px;
+            overflow-y: auto; /* Permitir scroll */
+        }
+        
+        #final-interface.active { opacity: 1; visibility: visible; }
+
+        /* Tarjeta Estilo Original (Restaurada) */
+        .card-wrapper { padding: 20px; width: 100%; display: flex; justify-content: center; }
+        
+        .card {
+            width: 100%; max-width: 500px;
+            background-color: var(--white);
+            position: relative;
+            box-shadow: 0 30px 60px -10px rgba(0, 51, 102, 0.25);
+            overflow: hidden;
+            border-radius: 4px;
+            /* Marco dorado sutil interno */
+            border: 1px solid rgba(197, 160, 89, 0.3);
+        }
+
+        /* Header con Animación Nieve (Restaurado) */
         .header {
             background-color: var(--primary);
-            padding: 45px 30px;
+            padding: 40px 30px;
             text-align: center;
             position: relative;
             overflow: hidden;
-        }
-
-        /* Nieve dorada mejorada */
-        .sparkle {
-            position: absolute;
-            background-color: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-            opacity: 0;
-            animation: snowfall linear infinite;
-        }
-
-        @keyframes snowfall {
-            0% { transform: translateY(-10px) translateX(0); opacity: 0; }
-            20% { opacity: 0.8; }
-            100% { transform: translateY(120px) translateX(20px); opacity: 0; }
-        }
-
-        .logo-container {
-            position: relative;
-            z-index: 2;
         }
 
         .logo-utpl {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            font-size: 32px;
-            color: var(--white);
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 28px;
+            color: var(--white); letter-spacing: 2px; text-transform: uppercase;
         }
-
         .logo-sub {
-            display: block;
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 15px;
-            color: var(--gold-light);
-            letter-spacing: 5px;
-            margin-top: 8px;
-            font-style: italic;
-            text-transform: uppercase;
+            display: block; font-family: 'Cormorant Garamond', serif; font-size: 16px;
+            color: var(--gold-light); letter-spacing: 4px; margin-top: 5px; font-style: italic;
         }
+        .gold-divider { height: 3px; background: var(--gold-gradient); width: 100%; }
 
-        /* Separador dorado */
-        .gold-divider {
-            height: 4px;
-            background: var(--gold-gradient);
-            width: 100%;
-            position: relative;
-            z-index: 6;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        /* --- Contenido --- */
-        .content {
-            padding: 50px 35px;
-            text-align: center;
-            position: relative;
-            z-index: 6;
-        }
-
-        /* Títulos */
+        /* Contenido */
+        .content { padding: 40px 30px; text-align: center; position: relative; }
+        .ornament-icon { color: var(--gold); font-size: 20px; margin-bottom: 10px; opacity: 0.8; }
         .pre-header {
-            text-transform: uppercase;
-            font-size: 11px;
-            letter-spacing: 3px;
-            color: var(--gold);
-            font-weight: 600;
-            margin-bottom: 15px;
-            display: inline-block;
-            border-bottom: 1px solid rgba(197, 160, 89, 0.4);
-            padding-bottom: 4px;
+            text-transform: uppercase; font-size: 10px; letter-spacing: 3px; color: var(--gold);
+            font-weight: 600; margin-bottom: 10px; display: inline-block;
+            border-bottom: 1px solid var(--gold); padding-bottom: 3px;
         }
 
         h1 {
-            font-family: 'Cormorant Garamond', serif;
-            color: var(--primary);
-            font-size: 46px;
-            margin: 5px 0 10px 0;
-            font-weight: 600;
-            line-height: 0.95;
+            font-family: 'Cormorant Garamond', serif; color: var(--primary);
+            font-size: 42px; margin: 5px 0 15px 0; font-weight: 600; line-height: 1;
         }
-
         h1 span {
-            display: block;
-            font-size: 0.5em;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 400;
-            color: var(--text-grey);
-            margin-top: 8px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+            display: block; font-size: 0.6em; font-family: 'Montserrat', sans-serif;
+            font-weight: 300; color: var(--text-grey); margin-top: 5px; letter-spacing: 1px; text-transform: uppercase;
         }
 
-        /* Frase */
-        .quote-container {
-            margin: 30px auto;
-            position: relative;
-            max-width: 90%;
-        }
+        .quote-container { margin: 25px auto; position: relative; max-width: 90%; }
+        .quote-text { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 18px; color: #444; line-height: 1.4; }
 
-        .quote-text {
-            font-family: 'Cormorant Garamond', serif;
-            font-style: italic;
-            font-size: 19px;
-            color: #4a4a4a;
-            line-height: 1.5;
-        }
-        
-        .ornament-icon {
-            color: var(--gold);
-            font-size: 24px;
-            margin-bottom: 15px;
-            opacity: 0.9;
-        }
-
-        /* Detalles Grid Perfecta */
+        /* Detalles Grid (Perfectamente cuadrado) */
         .details-row {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin: 35px 0;
-            border-top: 1px solid rgba(0,0,0,0.05);
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            padding: 25px 0;
-            align-items: start;
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;
+            margin: 30px 0; border-top: 1px solid #eee; border-bottom: 1px solid #eee;
+            padding: 20px 0; align-items: start;
         }
-
-        .detail-group {
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            height: 100%;
-        }
-
-        .detail-label {
-            font-size: 10px;
-            text-transform: uppercase;
-            color: #999;
-            letter-spacing: 1.5px;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        .detail-value {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            color: var(--primary);
-            font-size: 14px;
-            line-height: 1.4;
-        }
-
-        /* Enlace ubicación refinado */
-        .location-link {
-            text-decoration: none;
-            color: var(--primary);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+        .detail-group { text-align: center; display: flex; flex-direction: column; align-items: center; }
+        .detail-label { font-size: 10px; text-transform: uppercase; color: #999; letter-spacing: 1px; margin-bottom: 6px; height: 12px; }
+        .detail-value { font-family: 'Montserrat', sans-serif; font-weight: 600; color: var(--primary); font-size: 13px; line-height: 1.4; }
         
-        .location-link:hover {
-            color: var(--gold);
-            transform: translateY(-2px);
-        }
-        
-        .icon-map { 
-            font-size: 14px; 
-            margin-top: 4px;
-            opacity: 0.8;
-        }
+        .location-link { text-decoration: none; color: var(--primary); transition: color 0.3s; display: inline-block; }
+        .location-link:hover { color: var(--gold); }
+        .icon-map { font-size: 14px; vertical-align: middle; display: inline-block; margin-left: 2px; }
 
-        /* --- Botones --- */
-        .btn-container {
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-            margin-top: 35px;
-        }
-
+        /* Botones */
+        .btn-container { display: flex; flex-direction: column; gap: 15px; margin-top: 30px; }
         .btn {
-            border: none;
-            padding: 18px 25px;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 13px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            border-radius: 3px;
+            border: none; padding: 16px 20px; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: all 0.4s ease;
+            position: relative; overflow: hidden; display: flex; justify-content: center; align-items: center; gap: 10px;
         }
-
-        /* Botón Principal con Efecto Shimmer */
-        .btn-gold {
-            background: var(--gold-gradient);
-            color: var(--white);
-            box-shadow: 0 8px 20px -6px rgba(197, 160, 89, 0.6);
-            z-index: 1;
-        }
-
-        .btn-gold::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            transition: 0.5s;
-            z-index: -1;
-        }
-
-        .btn-gold:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 25px -6px rgba(197, 160, 89, 0.7);
-        }
-
-        .btn-gold:hover::after {
-            left: 100%;
-        }
-
-        .btn-links {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 1px solid rgba(0, 51, 102, 0.3);
-            color: var(--primary);
-            padding: 14px;
-            font-size: 11px;
-        }
-
-        .btn-outline:hover {
-            border-color: var(--primary);
-            background-color: var(--primary);
-            color: var(--white);
-            transform: translateY(-2px);
-        }
-
-        /* --- Footer --- */
-        .footer {
-            margin-top: 45px;
-            font-size: 11px;
-            color: #999;
-            letter-spacing: 0.5px;
-        }
-
-        .signature {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 18px;
-            color: var(--primary);
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        /* --- MODALES --- */
-        .modal-backdrop {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 20, 40, 0.6);
-            backdrop-filter: blur(6px);
-            z-index: 1000;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-        .modal-active {
-            display: flex;
-            opacity: 1;
-        }
-
-        .modal-content {
-            background: #fff;
-            width: 90%;
-            max-width: 420px;
-            padding: 40px 30px;
-            position: relative;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
-            transform: scale(0.95) translateY(10px);
-            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-            text-align: center;
-            border-top: 3px solid var(--gold);
-        }
-
-        .modal-active .modal-content {
-            transform: scale(1) translateY(0);
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: none;
-            border: none;
-            font-size: 24px;
-            color: #ccc;
-            cursor: pointer;
-            transition: color 0.3s;
-            padding: 5px;
-        }
+        .btn-gold { background: var(--gold-gradient); color: var(--white); box-shadow: 0 10px 20px -5px rgba(197, 160, 89, 0.4); }
+        .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 15px 25px -5px rgba(197, 160, 89, 0.5); }
         
+        .btn-links { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .btn-outline { background: transparent; border: 1px solid var(--primary); color: var(--primary); }
+        .btn-outline:hover { background-color: var(--primary); color: var(--white); }
+
+        .footer { margin-top: 40px; font-size: 11px; color: #888; }
+        .signature { font-family: 'Cormorant Garamond', serif; font-size: 16px; color: var(--primary); font-weight: 600; margin-bottom: 2px; }
+        .cargo-text { font-weight: 600; color: var(--primary); letter-spacing: 1px; font-size: 10px; text-transform: uppercase; }
+
+        /* Modales */
+        .modal-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 30, 60, 0.5); backdrop-filter: blur(8px); z-index: 3000; display: none; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.4s ease; }
+        .modal-active { display: flex; opacity: 1; }
+        .modal-content { background: #fff; width: 90%; max-width: 450px; padding: 40px 30px; position: relative; box-shadow: 0 25px 50px rgba(0,0,0,0.2); transform: translateY(20px); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); text-align: center; border-top: 4px solid var(--gold); }
+        .modal-active .modal-content { transform: translateY(0); }
+        .close-modal { position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 24px; color: #999; cursor: pointer; transition: color 0.3s; }
         .close-modal:hover { color: var(--primary); }
-
-        .modal-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 24px;
-            color: var(--primary);
-            margin: 0 0 25px;
-            border-bottom: 1px solid #f0f0f0;
-            padding-bottom: 15px;
-            letter-spacing: 0.5px;
-        }
-
-        /* Lista de Asistentes Estilizada */
-        .attendees-list {
-            text-align: left;
-            max-height: 250px;
-            overflow-y: auto;
-            margin-bottom: 25px;
-            padding-right: 5px;
-            border: 1px solid #f5f5f5;
-            border-radius: 4px;
-        }
+        .modal-title { font-family: 'Cormorant Garamond', serif; font-size: 26px; color: var(--primary); margin: 0 0 20px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
         
-        .attendees-list::-webkit-scrollbar { width: 4px; }
-        .attendees-list::-webkit-scrollbar-track { background: #fff; }
-        .attendees-list::-webkit-scrollbar-thumb { background: #ddd; border-radius: 4px; }
+        .attendees-list { text-align: left; max-height: 250px; overflow-y: auto; margin-bottom: 20px; padding-right: 5px; }
+        .attendee-item { display: flex; align-items: center; padding: 10px; border-bottom: 1px solid #f9f9f9; cursor: pointer; }
+        .attendee-item:hover { background-color: #fcfcfc; }
+        .attendee-item input { margin-right: 10px; accent-color: var(--primary); transform: scale(1.1); }
+        .attendee-name { font-size: 14px; color: #444; }
 
-        .attendee-item {
-            display: flex;
-            align-items: center;
-            padding: 12px 15px;
-            border-bottom: 1px solid #f9f9f9;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        
-        .attendee-item:last-child { border-bottom: none; }
-        .attendee-item:hover { background-color: #fafafa; }
-        
-        /* Checkbox personalizado */
-        .attendee-item input { 
-            margin-right: 12px; 
-            accent-color: var(--primary); 
-            transform: scale(1.2); 
-            cursor: pointer;
-        }
-        
-        .attendee-name { 
-            font-size: 14px; 
-            color: #444; 
-            font-weight: 500;
-        }
-
-        /* Timeline en Modal */
-        .timeline-elegant {
-            text-align: left;
-            border-left: 2px solid #e0e0e0;
-            padding-left: 25px;
-            margin-left: 15px;
-            margin-top: 10px;
-        }
-
-        .t-item {
-            position: relative;
-            margin-bottom: 30px;
-        }
-        
+        .timeline-elegant { text-align: left; border-left: 2px solid var(--gold-light); padding-left: 25px; margin-left: 15px; }
+        .t-item { position: relative; margin-bottom: 30px; }
         .t-item:last-child { margin-bottom: 0; }
-
-        .t-item::before {
-            content: '';
-            position: absolute;
-            left: -32px;
-            top: 4px;
-            width: 12px;
-            height: 12px;
-            background: var(--white);
-            border: 2px solid var(--gold);
-            border-radius: 50%;
-            box-shadow: 0 0 0 3px #fff;
-        }
-
-        .t-time {
-            font-size: 10px;
-            font-weight: 700;
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 4px;
-            display: block;
-            background: #f0f4f8;
-            padding: 2px 6px;
-            display: inline-block;
-            border-radius: 3px;
-        }
-
-        .t-desc {
-            font-size: 14px;
-            color: #444;
-            font-weight: 500;
-            margin-top: 3px;
-        }
-
-        /* Iconos SVG */
-        .icon-svg {
-            width: 18px;
-            height: 18px;
-            stroke-width: 1.5;
-        }
+        .t-item::before { content: ''; position: absolute; left: -32px; top: 4px; width: 12px; height: 12px; background: var(--white); border: 2px solid var(--gold); border-radius: 50%; }
+        .t-time { font-size: 11px; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; display: block; }
+        .t-desc { font-size: 14px; color: #444; font-weight: 500; }
+        .icon-svg { width: 18px; height: 18px; stroke-width: 1.5; }
 
     </style>
 </head>
 <body>
 
-<div class="card-wrapper">
-    <div class="card">
+    <!-- 1. ESCENA DEL SOBRE (Intro) -->
+    <div id="intro-scene" onclick="openEnvelope()">
+        <div id="snowContainer"></div> <!-- Nieve JS -->
         
-        <!-- Header -->
-        <div class="header">
-            <!-- Nieve dorada -->
-            <div class="sparkle" style="width: 4px; height: 4px; left: 20%; animation-duration: 4s; animation-delay: 0s;"></div>
-            <div class="sparkle" style="width: 3px; height: 3px; left: 70%; animation-duration: 5s; animation-delay: 1.5s;"></div>
-            <div class="sparkle" style="width: 2px; height: 2px; left: 40%; animation-duration: 6s; animation-delay: 2.5s;"></div>
-            <div class="sparkle" style="width: 3px; height: 3px; left: 90%; animation-duration: 4.5s; animation-delay: 3s;"></div>
-            
-            <div class="logo-container">
-                <div class="logo-utpl">UTPL</div>
-                <span class="logo-sub">Zona 4</span>
-            </div>
-        </div>
-        
-        <div class="gold-divider"></div>
-
-        <div class="content">
-            <div class="ornament-icon">✦</div>
-            <div class="pre-header">Invitación Corporativa</div>
-            
-            <h1>Cena de Navidad <span>Fin de Año 2025</span></h1>
-
-            <div class="quote-container">
-                <p class="quote-text">
-                    "Que la unión y el espíritu navideño renueven nuestro compromiso y fortalezcan nuestros lazos. Un momento para celebrar juntos nuestros logros."
-                </p>
-            </div>
-
-            <!-- Datos Clave -->
-            <div class="details-row">
-                <div class="detail-group">
-                    <div class="detail-label">Fecha</div>
-                    <div class="detail-value">Dic 12</div>
-                </div>
-                <div class="detail-group">
-                    <div class="detail-label">Hora</div>
-                    <div class="detail-value">17:00</div>
-                </div>
-                <div class="detail-group">
-                    <div class="detail-label">Lugar</div>
-                    <!-- Enlace a Google Maps -->
-                    <a href="https://maps.app.goo.gl/JsVaXVVZsPSEiEv17" target="_blank" class="location-link">
-                        <div class="detail-value">Manta</div>
-                        <div class="detail-value" style="font-weight: 500; font-size: 12px; margin-top: 2px;">Hotel Poseidon</div>
-                        <span class="icon-map">📍 Ver Mapa</span>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Botones -->
-            <div class="btn-container">
-                <!-- Botón Confirmar abre Modal de Lista -->
-                <button class="btn btn-gold" onclick="toggleModal('modal-asistencia')">
-                    Confirmar Asistencia
-                    <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </button>
+        <div class="wrapper" id="envelopeWrapper">
+            <div class="envelope">
+                <div class="envelope-inner"></div>
                 
-                <div class="btn-links">
-                    <button class="btn btn-outline" onclick="toggleModal('modal-dress')">Vestimenta</button>
-                    <button class="btn btn-outline" onclick="toggleModal('modal-itinerary')">Itinerario</button>
+                <!-- Tarjeta Preview (visual) -->
+                <div class="card-preview">
+                    <span>UTPL</span>
+                </div>
+
+                <!-- Bolsillos -->
+                <div class="flap flap-left"></div>
+                <div class="flap flap-right"></div>
+                <div class="flap flap-bottom"></div>
+                
+                <!-- Tapa y Sello -->
+                <div class="flap flap-top">
+                    <div class="seal" id="sealBtn">
+                        <span>UTPL</span>
+                    </div>
                 </div>
             </div>
+            <div class="click-hint">Toca el sello para abrir</div>
+        </div>
+    </div>
 
-            <div class="footer">
-                <div class="signature">Karina Rojas</div>
-                Dirección Zona 4
+    <!-- 2. INVITACIÓN RESTAURADA (Exacta a la que te gustó) -->
+    <div id="final-interface">
+        <div class="card-wrapper">
+            <div class="card">
+                
+                <!-- Header con nieve sutil -->
+                <div class="header">
+                    <div class="logo-container">
+                        <div class="logo-utpl">UTPL</div>
+                        <span class="logo-sub">Zona 4</span>
+                    </div>
+                </div>
+                
+                <div class="gold-divider"></div>
+
+                <div class="content">
+                    <div class="ornament-icon">✦</div>
+                    <div class="pre-header">Invitación Corporativa</div>
+                    
+                    <h1>Cena de Navidad <span>Fin de Año 2025</span></h1>
+
+                    <div class="quote-container">
+                        <p class="quote-text">
+                            "Que la unión y el espíritu navideño renueven nuestro compromiso y fortalezcan nuestros lazos. Un momento para celebrar juntos nuestros logros."
+                        </p>
+                    </div>
+
+                    <!-- Datos Clave -->
+                    <div class="details-row">
+                        <div class="detail-group">
+                            <div class="detail-label">Fecha</div>
+                            <div class="detail-value">Dic 12</div>
+                        </div>
+                        <div class="detail-group">
+                            <div class="detail-label">Hora</div>
+                            <div class="detail-value">17:00</div>
+                        </div>
+                        <div class="detail-group">
+                            <div class="detail-label">Lugar</div>
+                            <!-- Enlace a Google Maps -->
+                            <a href="https://maps.app.goo.gl/JsVaXVVZsPSEiEv17" target="_blank" class="location-link">
+                                <div class="detail-value">Manta</div>
+                                <div class="detail-value" style="font-weight: 500; font-size: 12px; margin-top: 2px;">Hotel Poseidon</div>
+                                <span class="icon-map">📍 Ver Mapa</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Botones -->
+                    <div class="btn-container">
+                        <button class="btn btn-gold" onclick="toggleModal('modal-asistencia')">
+                            Confirmar Asistencia
+                            <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </button>
+                        
+                        <div class="btn-links">
+                            <button class="btn btn-outline" onclick="toggleModal('modal-dress')">Vestimenta</button>
+                            <button class="btn btn-outline" onclick="toggleModal('modal-itinerary')">Itinerario</button>
+                        </div>
+                    </div>
+
+                    <div class="footer">
+                        <div class="signature">Karina Rojas</div>
+                        <div class="cargo-text">GERENCIA COMERCIAL ZONA 4</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Modal 1: Lista de Asistencia -->
-<div id="modal-asistencia" class="modal-backdrop" onclick="toggleModal('modal-asistencia')">
-    <div class="modal-content" onclick="event.stopPropagation()">
-        <button class="close-modal" onclick="toggleModal('modal-asistencia')">&times;</button>
-        <h3 class="modal-title">Confirmar Asistencia</h3>
-        
-        <p style="font-size: 13px; color: #666; margin-bottom: 20px; text-align: left;">
-            Seleccione las personas que asistirán:
-        </p>
-
-        <div class="attendees-list">
-            <label class="attendee-item">
-                <input type="checkbox"> <span class="attendee-name">Juan Pérez</span>
-            </label>
-            <label class="attendee-item">
-                <input type="checkbox"> <span class="attendee-name">María López</span>
-            </label>
-            <label class="attendee-item">
-                <input type="checkbox"> <span class="attendee-name">Carlos Andrade</span>
-            </label>
-            <label class="attendee-item">
-                <input type="checkbox"> <span class="attendee-name">Ana García</span>
-            </label>
-            <label class="attendee-item">
-                <input type="checkbox"> <span class="attendee-name">Luis Mendoza</span>
-            </label>
-            <label class="attendee-item">
-                <input type="checkbox"> <span class="attendee-name">Sofía Torres</span>
-            </label>
-            <label class="attendee-item">
-                <input type="checkbox"> <span class="attendee-name">David Silva</span>
-            </label>
-        </div>
-
-        <button id="btn-enviar" class="btn btn-gold" style="width: 100%;" onclick="enviarConfirmacion()">
-            Enviar Confirmación
-        </button>
-    </div>
-</div>
-
-<!-- Modal 2: Vestimenta -->
-<div id="modal-dress" class="modal-backdrop" onclick="toggleModal('modal-dress')">
-    <div class="modal-content" onclick="event.stopPropagation()">
-        <button class="close-modal" onclick="toggleModal('modal-dress')">&times;</button>
-        <h3 class="modal-title">Código de Vestimenta</h3>
-        
-        <div style="text-align: left; padding: 0 10px;">
-            <!-- Color -->
-            <div style="display: flex; gap: 15px; margin-bottom: 25px; align-items: start;">
-                <div style="background: #f4f6f8; padding: 12px; border-radius: 50%; color: var(--primary);">
-                   <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.38 3.4a1.6 1.6 0 0 1 .4 1.6l-1.9 6.22a2.33 2.33 0 0 1-2.2 1.66h-9.36a2.33 2.33 0 0 1-2.2-1.66L3.22 5a1.6 1.6 0 0 1 1.76-2.08l1.63.26A2.3 2.3 0 0 0 8.86 2h6.28a2.3 2.3 0 0 0 2.25 1.18z"></path></svg>
-                </div>
-                <div>
-                    <h4 style="margin: 0; color: var(--primary); font-family: 'Cormorant Garamond', serif; font-size: 18px;">Gama de Colores</h4>
-                    <p style="margin: 5px 0 0; font-size: 13px; color: #666; line-height: 1.5;">Se sugiere vestir en <strong>color blanco o tonos pasteles</strong> para armonizar con la temática.</p>
-                </div>
+    <!-- Modales -->
+    
+    <!-- Asistencia -->
+    <div id="modal-asistencia" class="modal-backdrop" onclick="toggleModal('modal-asistencia')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="close-modal" onclick="toggleModal('modal-asistencia')">&times;</button>
+            <h3 class="modal-title">Confirmar Asistencia</h3>
+            <p style="font-size: 13px; color: #666; margin-bottom: 20px; text-align: left;">
+                Seleccione las personas que asistirán:
+            </p>
+            <div class="attendees-list">
+                <label class="attendee-item"><input type="checkbox"><span class="attendee-name">Juan Pérez</span></label>
+                <label class="attendee-item"><input type="checkbox"><span class="attendee-name">María López</span></label>
+                <label class="attendee-item"><input type="checkbox"><span class="attendee-name">Carlos Andrade</span></label>
+                <label class="attendee-item"><input type="checkbox"><span class="attendee-name">Ana García</span></label>
+                <label class="attendee-item"><input type="checkbox"><span class="attendee-name">Luis Mendoza</span></label>
             </div>
+            <button class="btn btn-gold" style="width: 100%;" onclick="enviarConfirmacion()">Enviar Confirmación</button>
+        </div>
+    </div>
 
-            <!-- Calzado -->
-            <div style="display: flex; gap: 15px; align-items: start;">
-                 <div style="background: #fff9e6; padding: 12px; border-radius: 50%; color: var(--gold);">
-                   <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 22v-6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v6"/><path d="M4 16c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+    <!-- Vestimenta -->
+    <div id="modal-dress" class="modal-backdrop" onclick="toggleModal('modal-dress')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="close-modal" onclick="toggleModal('modal-dress')">&times;</button>
+            <h3 class="modal-title">Código de Vestimenta</h3>
+            <div style="text-align: left; padding: 0 10px;">
+                <div style="display: flex; gap: 15px; margin-bottom: 25px; align-items: start;">
+                    <div style="background: #f4f6f8; padding: 12px; border-radius: 50%; color: var(--primary);">
+                       <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.38 3.4a1.6 1.6 0 0 1 .4 1.6l-1.9 6.22a2.33 2.33 0 0 1-2.2 1.66h-9.36a2.33 2.33 0 0 1-2.2-1.66L3.22 5a1.6 1.6 0 0 1 1.76-2.08l1.63.26A2.3 2.3 0 0 0 8.86 2h6.28a2.3 2.3 0 0 0 2.25 1.18z"></path></svg>
+                    </div>
+                    <div>
+                        <h4 style="margin: 0; color: var(--primary); font-family: 'Cormorant Garamond', serif; font-size: 18px;">Gama de Colores</h4>
+                        <p style="margin: 5px 0 0; font-size: 13px; color: #666; line-height: 1.5;">Se sugiere vestir en <strong>blanco o tonos pasteles</strong> para armonizar con la temática.</p>
+                    </div>
                 </div>
-                <div>
-                    <h4 style="margin: 0; color: var(--primary); font-family: 'Cormorant Garamond', serif; font-size: 18px;">Calzado Cómodo</h4>
-                    <p style="margin: 5px 0 0; font-size: 13px; color: #666; line-height: 1.5;">Evento sobre arena. Por su comodidad, <strong>evitar tacones</strong>. Se recomienda el uso de sandalias formales.</p>
+                <div style="display: flex; gap: 15px; align-items: start;">
+                     <div style="background: #fff9e6; padding: 12px; border-radius: 50%; color: var(--gold);">
+                       <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 22v-6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v6"/><path d="M4 16c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+                    </div>
+                    <div>
+                        <h4 style="margin: 0; color: var(--primary); font-family: 'Cormorant Garamond', serif; font-size: 18px;">Calzado Cómodo</h4>
+                        <p style="margin: 5px 0 0; font-size: 13px; color: #666; line-height: 1.5;">Evento sobre arena. Por su comodidad, <strong>evitar tacones</strong>. Se recomienda el uso de sandalias formales.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Modal 3: Itinerario -->
-<div id="modal-itinerary" class="modal-backdrop" onclick="toggleModal('modal-itinerary')">
-    <div class="modal-content" onclick="event.stopPropagation()">
-        <button class="close-modal" onclick="toggleModal('modal-itinerary')">&times;</button>
-        <h3 class="modal-title">Itinerario Oficial</h3>
-        
-        <div class="timeline-elegant">
-            <div class="t-item">
-                <span class="t-time">15:00</span>
-                <div class="t-desc">Check-in Hotel Poseidon</div>
-            </div>
-            <div class="t-item">
-                <span class="t-time">17:00</span>
-                <div class="t-desc">Inicio del Evento</div>
-            </div>
-            <div class="t-item">
-                <span class="t-time">19:00</span>
-                <div class="t-desc">Cena Navideña</div>
-            </div>
-             <div class="t-item">
-                <span class="t-time">NOCHE</span>
-                <div class="t-desc">Hospedaje</div>
-            </div>
-            <div class="t-item">
-                <span class="t-time">08:00</span>
-                <div class="t-desc">Desayuno Buffet</div>
-            </div>
-            <div class="t-item">
-                <span class="t-time">12:00</span>
-                <div class="t-desc">Check-out</div>
+    <!-- Itinerario -->
+    <div id="modal-itinerary" class="modal-backdrop" onclick="toggleModal('modal-itinerary')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="close-modal" onclick="toggleModal('modal-itinerary')">&times;</button>
+            <h3 class="modal-title">Itinerario Oficial</h3>
+            <div class="timeline-elegant">
+                <div class="t-item"><span class="t-time">15:00</span><div class="t-desc">Check-in Hotel Poseidon</div></div>
+                <div class="t-item"><span class="t-time">17:00</span><div class="t-desc">Inicio del Evento</div></div>
+                <div class="t-item"><span class="t-time">19:00</span><div class="t-desc">Cena Navideña</div></div>
+                <div class="t-item"><span class="t-time">NOCHE</span><div class="t-desc">Hospedaje</div></div>
+                <div class="t-item"><span class="t-time">08:00</span><div class="t-desc">Desayuno Buffet</div></div>
+                <div class="t-item"><span class="t-time">12:00</span><div class="t-desc">Check-out</div></div>
             </div>
         </div>
     </div>
-</div>
 
-<script>
-    function toggleModal(id) {
-        const modal = document.getElementById(id);
-        if (modal.classList.contains('modal-active')) {
-            modal.classList.remove('modal-active');
-            setTimeout(() => { modal.style.display = 'none'; }, 400); 
-        } else {
-            modal.style.display = 'flex';
-            // Force reflow
-            modal.offsetHeight;
-            modal.classList.add('modal-active');
+    <script>
+        // --- 1. NIEVE ---
+        const snowContainer = document.getElementById('snowContainer'); 
+        function createSnowflakes() {
+            const container = document.getElementById('intro-scene');
+            const chars = ['❄', '❅', '❆', '•'];
+            for (let i = 0; i < 40; i++) {
+                const flake = document.createElement('div');
+                flake.classList.add('snowflake');
+                flake.textContent = chars[Math.floor(Math.random() * chars.length)];
+                flake.style.left = Math.random() * 100 + 'vw';
+                flake.style.fontSize = (Math.random() * 10 + 10) + 'px';
+                flake.style.animationDuration = (Math.random() * 5 + 5) + 's';
+                flake.style.animationDelay = (Math.random() * 5) + 's';
+                flake.style.opacity = Math.random() * 0.5 + 0.2;
+                container.appendChild(flake);
+            }
         }
-    }
+        createSnowflakes();
 
-    function enviarConfirmacion() {
-        const btn = document.getElementById('btn-enviar');
-        const originalText = btn.innerHTML;
-        
-        // Simular envío visual
-        btn.innerHTML = "Enviando...";
-        btn.style.backgroundColor = "#28a745"; // Verde éxito momentáneo
-        btn.style.backgroundImage = "none";
-        
-        setTimeout(() => {
-            btn.innerHTML = "¡Enviado! ✓";
-            
+        // --- 2. LÓGICA DE APERTURA ---
+        let opened = false;
+        function openEnvelope() {
+            if (opened) return;
+            opened = true;
+
+            const wrapper = document.getElementById('envelopeWrapper');
+            const introScene = document.getElementById('intro-scene');
+            const finalInterface = document.getElementById('final-interface');
+            const hint = document.querySelector('.click-hint');
+
+            // 1. Abrir sobre
+            wrapper.classList.add('open');
+            if(hint) hint.style.opacity = 0;
+
+            // 2. Transición suave
             setTimeout(() => {
-                toggleModal('modal-asistencia');
-                // Restaurar botón después de cerrar
+                // Zoom out y fade
+                wrapper.classList.add('zoom-out'); 
+                
                 setTimeout(() => {
-                    btn.innerHTML = originalText;
-                    btn.style.backgroundColor = "";
-                    btn.style.backgroundImage = "";
-                }, 500);
-            }, 1000);
-        }, 800);
-    }
-</script>
+                    // 3. Mostrar invitacion final
+                    introScene.style.opacity = 0;
+                    finalInterface.classList.add('active');
+                    
+                    // Limpieza
+                    setTimeout(() => {
+                        introScene.style.visibility = 'hidden';
+                        document.body.style.background = '#f3f4f6'; // Fondo final del body (coincide con bg-body de la invitación)
+                        document.body.style.overflowY = 'auto';
+                    }, 1000);
+                }, 600);
+            }, 1200); // Tiempo para ver la tarjeta asomar
+        }
 
+        // --- 3. LÓGICA DE MODALES ---
+        function toggleModal(id) {
+            const modal = document.getElementById(id);
+            if (modal.classList.contains('modal-active')) {
+                modal.classList.remove('modal-active');
+                setTimeout(() => { modal.style.display = 'none'; }, 400); 
+            } else {
+                modal.style.display = 'flex';
+                // Force reflow
+                modal.offsetHeight;
+                modal.classList.add('modal-active');
+            }
+        }
+
+        function enviarConfirmacion() {
+            alert("¡Asistencia Confirmada! Gracias.");
+            toggleModal('modal-asistencia');
+        }
+    </script>
 </body>
 </html>
