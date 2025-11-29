@@ -201,20 +201,23 @@
             opacity: 0.8;
         }
 
-        /* Detalles Grid */
+        /* Detalles Grid MEJORADO */
         .details-row {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 30px;
+            display: grid; /* Usamos Grid para anchos exactos */
+            grid-template-columns: repeat(3, 1fr); /* 3 columnas de igual tamaño */
+            gap: 15px;
             margin: 30px 0;
             border-top: 1px solid #eee;
             border-bottom: 1px solid #eee;
             padding: 20px 0;
+            align-items: start; /* Alineamos al top para que los títulos siempre coincidan */
         }
 
         .detail-group {
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .detail-label {
@@ -222,7 +225,8 @@
             text-transform: uppercase;
             color: #999;
             letter-spacing: 1px;
-            margin-bottom: 5px;
+            margin-bottom: 6px;
+            height: 12px; /* Altura fija para alinear títulos */
         }
 
         .detail-value {
@@ -230,6 +234,26 @@
             font-weight: 600;
             color: var(--primary);
             font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .location-link {
+            text-decoration: none;
+            color: var(--primary);
+            transition: color 0.3s;
+            cursor: pointer;
+            display: inline-block;
+        }
+        .location-link:hover {
+            color: var(--gold);
+        }
+        
+        /* Ajuste para que el icono se vea bien junto al texto o debajo si es necesario */
+        .icon-map { 
+            font-size: 14px; 
+            vertical-align: middle;
+            display: inline-block;
+            margin-left: 2px;
         }
 
         /* --- Botones --- */
@@ -305,7 +329,7 @@
         .modal-backdrop {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 30, 60, 0.4);
+            background: rgba(0, 30, 60, 0.5);
             backdrop-filter: blur(8px); /* Efecto Glass elegante */
             z-index: 1000;
             display: none;
@@ -359,6 +383,31 @@
             border-bottom: 1px solid #eee;
             padding-bottom: 15px;
         }
+
+        /* Lista de Asistentes */
+        .attendees-list {
+            text-align: left;
+            max-height: 250px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding-right: 5px;
+        }
+        
+        .attendees-list::-webkit-scrollbar { width: 5px; }
+        .attendees-list::-webkit-scrollbar-thumb { background: var(--gold-light); border-radius: 4px; }
+
+        .attendee-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #f9f9f9;
+            cursor: pointer;
+        }
+        
+        .attendee-item:hover { background-color: #fcfcfc; }
+        
+        .attendee-item input { margin-right: 10px; accent-color: var(--primary); transform: scale(1.1); }
+        .attendee-name { font-size: 14px; color: #444; }
 
         /* Timeline en Modal */
         .timeline-elegant {
@@ -417,7 +466,7 @@
         
         <!-- Header con animación de destellos -->
         <div class="header">
-            <!-- Destellos generados por JS o CSS fijos -->
+            <!-- Destellos -->
             <div class="sparkle" style="top: 10%; left: 20%; animation-delay: 0s;"></div>
             <div class="sparkle" style="top: 30%; left: 80%; animation-delay: 1.5s;"></div>
             <div class="sparkle" style="top: 60%; left: 40%; animation-delay: 2.5s;"></div>
@@ -425,7 +474,7 @@
             
             <div class="logo-container">
                 <div class="logo-utpl">UTPL</div>
-                <span class="logo-sub">Zona 4 • Manabí</span>
+                <span class="logo-sub">Zona 4</span>
             </div>
         </div>
         
@@ -443,7 +492,7 @@
                 </p>
             </div>
 
-            <!-- Datos Clave -->
+            <!-- Datos Clave (Ahora perfectamente cuadrados) -->
             <div class="details-row">
                 <div class="detail-group">
                     <div class="detail-label">Fecha</div>
@@ -451,17 +500,23 @@
                 </div>
                 <div class="detail-group">
                     <div class="detail-label">Hora</div>
-                    <div class="detail-value">17:00 PM</div>
+                    <div class="detail-value">17:00</div>
                 </div>
                 <div class="detail-group">
                     <div class="detail-label">Lugar</div>
-                    <div class="detail-value">Hotel Poseidon</div>
+                    <div class="detail-value">
+                        <!-- Enlace a Google Maps con Manta -->
+                        <a href="https://maps.app.goo.gl/JsVaXVVZsPSEiEv17" target="_blank" class="location-link">
+                            Manta • Hotel Poseidon <span class="icon-map">📍</span>
+                        </a>
+                    </div>
                 </div>
             </div>
 
             <!-- Botones -->
             <div class="btn-container">
-                <button class="btn btn-gold" onclick="confirmar()">
+                <!-- Botón Confirmar abre Modal de Lista -->
+                <button class="btn btn-gold" onclick="toggleModal('modal-asistencia')">
                     Confirmar Asistencia
                     <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </button>
@@ -480,7 +535,45 @@
     </div>
 </div>
 
-<!-- Modal Vestimenta -->
+<!-- Modal 1: Lista de Asistencia -->
+<div id="modal-asistencia" class="modal-backdrop" onclick="toggleModal('modal-asistencia')">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <button class="close-modal" onclick="toggleModal('modal-asistencia')">&times;</button>
+        <h3 class="modal-title">Confirmar Asistencia</h3>
+        
+        <p style="font-size: 13px; color: #666; margin-bottom: 20px; text-align: left;">
+            Seleccione las personas que asistirán:
+        </p>
+
+        <div class="attendees-list">
+            <!-- Ejemplo de Lista -->
+            <label class="attendee-item">
+                <input type="checkbox"> <span class="attendee-name">Juan Pérez</span>
+            </label>
+            <label class="attendee-item">
+                <input type="checkbox"> <span class="attendee-name">María López</span>
+            </label>
+            <label class="attendee-item">
+                <input type="checkbox"> <span class="attendee-name">Carlos Andrade</span>
+            </label>
+            <label class="attendee-item">
+                <input type="checkbox"> <span class="attendee-name">Ana García</span>
+            </label>
+            <label class="attendee-item">
+                <input type="checkbox"> <span class="attendee-name">Luis Mendoza</span>
+            </label>
+            <label class="attendee-item">
+                <input type="checkbox"> <span class="attendee-name">Sofía Torres</span>
+            </label>
+        </div>
+
+        <button class="btn btn-gold" style="width: 100%;" onclick="enviarConfirmacion()">
+            Enviar Confirmación
+        </button>
+    </div>
+</div>
+
+<!-- Modal 2: Vestimenta -->
 <div id="modal-dress" class="modal-backdrop" onclick="toggleModal('modal-dress')">
     <div class="modal-content" onclick="event.stopPropagation()">
         <button class="close-modal" onclick="toggleModal('modal-dress')">&times;</button>
@@ -492,8 +585,8 @@
                    <svg class="icon-svg" style="color: var(--primary);" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.38 3.4a1.6 1.6 0 0 1 .4 1.6l-1.9 6.22a2.33 2.33 0 0 1-2.2 1.66h-9.36a2.33 2.33 0 0 1-2.2-1.66L3.22 5a1.6 1.6 0 0 1 1.76-2.08l1.63.26A2.3 2.3 0 0 0 8.86 2h6.28a2.3 2.3 0 0 0 2.25 1.18z"></path></svg>
                 </div>
                 <div>
-                    <h4 style="margin: 0; color: var(--primary); font-family: 'Cormorant Garamond', serif; font-size: 18px;">White Party</h4>
-                    <p style="margin: 5px 0 0; font-size: 13px; color: #666;">Se solicita vestimenta estrictamente blanca.</p>
+                    <h4 style="margin: 0; color: var(--primary); font-family: 'Cormorant Garamond', serif; font-size: 18px;">Gama de Colores</h4>
+                    <p style="margin: 5px 0 0; font-size: 13px; color: #666;">Se sugiere vestir en <strong>blanco o tonos pasteles</strong>.</p>
                 </div>
             </div>
 
@@ -503,14 +596,14 @@
                 </div>
                 <div>
                     <h4 style="margin: 0; color: var(--primary); font-family: 'Cormorant Garamond', serif; font-size: 18px;">Calzado Cómodo</h4>
-                    <p style="margin: 5px 0 0; font-size: 13px; color: #666;">Evento sobre arena. Por favor, <strong>evitar tacones</strong>. Sandalias formales recomendadas.</p>
+                    <p style="margin: 5px 0 0; font-size: 13px; color: #666;">Evento sobre arena. Por su comodidad, <strong>evitar tacones</strong>. Se recomienda el uso de sandalias formales.</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Modal Itinerario -->
+<!-- Modal 3: Itinerario -->
 <div id="modal-itinerary" class="modal-backdrop" onclick="toggleModal('modal-itinerary')">
     <div class="modal-content" onclick="event.stopPropagation()">
         <button class="close-modal" onclick="toggleModal('modal-itinerary')">&times;</button>
@@ -523,15 +616,15 @@
             </div>
             <div class="t-item">
                 <span class="t-time">17:00</span>
-                <div class="t-desc">Inicio del Evento & Bienvenida</div>
+                <div class="t-desc">Inicio del Evento</div>
             </div>
             <div class="t-item">
                 <span class="t-time">19:00</span>
-                <div class="t-desc">Cena Navideña Empresarial</div>
+                <div class="t-desc">Cena Navideña</div>
             </div>
              <div class="t-item">
                 <span class="t-time">NOCHE</span>
-                <div class="t-desc">Hospedaje en Hotel</div>
+                <div class="t-desc">Hospedaje</div>
             </div>
             <div class="t-item">
                 <span class="t-time">08:00</span>
@@ -550,7 +643,7 @@
         const modal = document.getElementById(id);
         if (modal.classList.contains('modal-active')) {
             modal.classList.remove('modal-active');
-            setTimeout(() => { modal.style.display = 'none'; }, 400); // Wait for transition
+            setTimeout(() => { modal.style.display = 'none'; }, 400); 
         } else {
             modal.style.display = 'flex';
             // Force reflow
@@ -559,9 +652,9 @@
         }
     }
 
-    function confirmar() {
-        // Aquí iría el enlace real, ej: window.open('https://forms.office.com/...', '_blank');
-        alert("¡Redirigiendo a formulario de confirmación!");
+    function enviarConfirmacion() {
+        alert("¡Asistencia Confirmada! Gracias.");
+        toggleModal('modal-asistencia');
     }
 </script>
 
