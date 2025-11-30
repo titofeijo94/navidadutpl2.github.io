@@ -15,21 +15,23 @@
 
     <style>
         :root {
-            /* --- VARIABLES --- */
+            /* --- VARIABLES DEL INTRO (SOBRE AZUL ORIGINAL) --- */
             --utpl-navy: #002855;
             --utpl-navy-dark: #001a38;
             --gold-leaf: #d4af37;
             --gold-shimmer: #f9e59e;
             --bg-gradient-inner: #050a14;
 
+            /* --- VARIABLES DE LA INVITACIÓN --- */
             --primary: #003366; 
             --primary-dark: #001a33;
             --gold: #C5A059;   
             --gold-light: #E5C585;
             --gold-gradient: linear-gradient(135deg, #C5A059 0%, #E5C585 50%, #B08D55 100%);
             --white: #ffffff;
-            --bg-body: #f3f4f6; /* Color base para el patrón */
+            --bg-body: #f3f4f6;
             
+            /* TEXTOS OSCUROS */
             --text-main: #1a1a1a;       
             --text-body: #333333;       
             --text-secondary: #555555;  
@@ -42,11 +44,11 @@
             background: radial-gradient(circle at center, #1a2a40 0%, #050a14 100%);
             margin: 0;
             min-height: 100vh;
-            overflow: hidden; /* Se desbloquea vía JS */
+            overflow: hidden; 
         }
 
         /* =========================================
-           1. INTRO (SOBRE)
+           1. ESTILOS DEL INTRO (SOBRE AZUL)
            ========================================= */
         #intro-scene {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -54,23 +56,25 @@
             z-index: 2000;
             perspective: 1200px;
             transition: opacity 1.5s ease, visibility 1.5s;
+            /* Fondo oscuro para la intro */
+            background: radial-gradient(circle at center, #1a2a40 0%, #050a14 100%);
         }
 
         .snowflake {
-            position: absolute; color: rgba(255, 255, 255, 0.5); font-size: 1rem;
+            position: absolute; color: rgba(255, 255, 255, 0.4); font-size: 1rem;
             top: -50px; animation: fall linear infinite; z-index: 0; pointer-events: none;
         }
         @keyframes fall {
             0% { transform: translateY(0) translateX(0); opacity: 0; }
-            10% { opacity: 0.9; }
+            10% { opacity: 0.8; }
             100% { transform: translateY(110vh) translateX(20px); opacity: 0; }
         }
 
         .wrapper {
-            position: relative; width: 300px; height: 200px; z-index: 10;
-            transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative; width: 340px; height: 240px; z-index: 10;
+            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        @media (min-width: 768px) { .wrapper { width: 520px; height: 340px; } }
+        @media (min-width: 768px) { .wrapper { width: 550px; height: 360px; } }
 
         .envelope {
             position: relative; width: 100%; height: 100%;
@@ -94,47 +98,49 @@
         }
         .wrapper.open .magic-light { opacity: 1; }
 
+        /* SOLAPAS (Diseño Azul Original) */
         .flap { position: absolute; width: 0; height: 0; border-style: solid; pointer-events: none; }
         
         .flap-left {
             top: 0; left: 0; bottom: 0;
-            border-width: 100px 0 100px 150px; 
+            border-width: 120px 0 120px 170px; /* Móvil */
             border-color: transparent transparent transparent var(--utpl-navy);
             z-index: 20; filter: brightness(1.1);
         }
         .flap-right {
             top: 0; right: 0; bottom: 0;
-            border-width: 100px 150px 100px 0; 
+            border-width: 120px 170px 120px 0; 
             border-color: transparent var(--utpl-navy-dark) transparent transparent;
             z-index: 20;
         }
         .flap-bottom {
             bottom: 0; left: 0;
-            border-width: 0 150px 110px 150px; 
+            border-width: 0 170px 130px 170px; 
             border-color: transparent transparent var(--utpl-navy) transparent;
             z-index: 21; filter: drop-shadow(0 -2px 5px rgba(0,0,0,0.3));
         }
         .flap-top {
             top: 0; left: 0;
-            border-width: 110px 150px 0 150px; 
+            border-width: 130px 170px 0 170px; 
             border-color: var(--utpl-navy-dark) transparent transparent transparent;
             z-index: 30; transform-origin: top;
             transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
             filter: drop-shadow(0 5px 5px rgba(0,0,0,0.3));
         }
 
+        /* Ajustes Desktop */
         @media (min-width: 768px) {
-            .flap-left { border-width: 170px 0 170px 270px; }
-            .flap-right { border-width: 170px 270px 170px 0; }
-            .flap-bottom { border-width: 0 260px 175px 260px; }
-            .flap-top { border-width: 180px 260px 0 260px; }
+            .flap-left { border-width: 180px 0 180px 275px; }
+            .flap-right { border-width: 180px 275px 180px 0; }
+            .flap-bottom { border-width: 0 275px 220px 275px; }
+            .flap-top { border-width: 200px 275px 0 275px; }
         }
 
         /* Sello */
         .seal {
             position: absolute;
-            top: -90px; left: 50%; transform: translate(-50%, 60%);
-            width: 60px; height: 60px;
+            top: -100px; left: 50%; transform: translate(-50%, 60%);
+            width: 70px; height: 70px;
             border-radius: 50%;
             background: radial-gradient(circle at 30% 30%, #e6cf8b, #bfa058, #7a5e20);
             box-shadow: 0 4px 8px rgba(0,0,0,0.5), inset 0 2px 3px rgba(255,255,255,0.4);
@@ -151,46 +157,46 @@
         }
         .seal span {
             position: relative; z-index: 10; 
-            font-family: 'Cinzel', serif; font-weight: 700; font-size: 0.9rem; 
+            font-family: 'Cinzel', serif; font-weight: 700; font-size: 1.1rem; 
             color: #5c4213; text-shadow: 0 1px 0 rgba(255,255,255,0.4);
             letter-spacing: 1px;
         }
-        @media (min-width: 768px) { .seal span { font-size: 1.1rem; } }
 
         .wrapper.open .flap-top { transform: rotateX(180deg); z-index: 1; }
         .wrapper.zoom-out { transform: scale(3); opacity: 0; }
 
         /* =========================================
-           2. ESTILOS DE LA INVITACIÓN FINAL
+           2. INVITACIÓN FINAL (CORRECCIÓN MÓVIL)
            ========================================= */
         #final-interface {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            /* Ajuste crítico para móviles: Scroll nativo */
             display: block; 
             opacity: 0; visibility: hidden;
             transition: opacity 2s ease;
             z-index: 100;
             background-color: var(--bg-body);
-            /* FONDO RESTAURADO: Patrón de puntos dorados */
             background-image: radial-gradient(var(--gold-light) 1px, transparent 1px);
             background-size: 30px 30px;
-            overflow-y: auto; 
-            -webkit-overflow-scrolling: touch; 
+            overflow-y: auto; /* Scroll vertical */
+            -webkit-overflow-scrolling: touch; /* Suavidad en iOS */
         }
         #final-interface.active { opacity: 1; visibility: visible; }
 
-        /* Wrapper principal de la tarjeta: Flexbox inteligente */
         .card-wrapper { 
             width: 100%; 
-            min-height: 100vh; 
+            min-height: 100vh; /* Asegura altura mínima completa */
             display: flex; 
-            flex-direction: column;
-            align-items: center; 
+            flex-direction: column; /* Columna para centrado seguro */
+            /* En móvil, usamos padding para 'centrar' visualmente sin cortar arriba */
             padding: 20px 15px; 
+            /* Eliminamos justify-content: center para evitar corte superior en pantallas pequeñas */
         }
         
+        /* En pantallas grandes, podemos centrar verticalmente de verdad */
         @media (min-width: 768px) {
             .card-wrapper {
-                justify-content: center;
+                justify-content: center; /* Centrado vertical solo en PC */
                 padding: 40px 0;
             }
         }
@@ -199,20 +205,20 @@
             width: 100%; max-width: 500px; 
             background-color: var(--white);
             position: relative;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            overflow: hidden; 
-            border-radius: 8px;
+            box-shadow: 0 30px 60px -10px rgba(0, 51, 102, 0.25);
+            overflow: hidden; border-radius: 4px;
             border: 1px solid rgba(197, 160, 89, 0.3);
-            animation: slideUp 1.2s ease-out forwards;
-            opacity: 0; transform: translateY(60px);
-            margin: 0 auto; 
+            /* CENTRADO SEGURO: margin auto centra si hay espacio, alinea top si no */
+            margin: auto; 
+            animation: slideUp 1s ease-out forwards;
+            opacity: 0; transform: translateY(50px);
         }
         @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
 
-        /* HEADER CON NIEVE */
+        /* Header CON NIEVE */
         .header {
             background-color: var(--primary);
-            padding: 30px 20px; text-align: center; position: relative;
+            padding: 40px 30px; text-align: center; position: relative;
             overflow: hidden; /* Importante para contener la nieve */
         }
         
@@ -221,8 +227,6 @@
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none; z-index: 1;
         }
-        
-        /* Copos del header */
         .header-flake {
             position: absolute; background: white; border-radius: 50%; opacity: 0.6;
             animation: headerFall linear infinite;
@@ -233,135 +237,157 @@
             100% { transform: translateY(150px) translateX(10px); opacity: 0; }
         }
 
-        .logo-container {
-            position: relative; z-index: 10; /* Encima de la nieve */
-        }
+        .logo-container { position: relative; z-index: 10; }
         .logo-utpl {
-            font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 32px;
-            color: var(--white); letter-spacing: 3px; text-transform: uppercase;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 28px;
+            color: var(--white); letter-spacing: 2px; text-transform: uppercase;
         }
         .logo-sub {
             display: block; font-family: 'Cormorant Garamond', serif; font-size: 16px;
-            color: var(--gold-light); letter-spacing: 5px; margin-top: 5px; font-style: italic;
+            color: var(--gold-light); letter-spacing: 4px; margin-top: 5px; font-style: italic;
         }
-        .gold-divider { height: 4px; background: var(--gold-gradient); width: 100%; }
+        .gold-divider { height: 3px; background: var(--gold-gradient); width: 100%; }
 
         /* Contenido */
-        .content { padding: 30px 20px; text-align: center; position: relative; }
-        @media (min-width: 768px) { .content { padding: 40px 40px; } }
-
-        .ornament-icon { color: var(--gold); font-size: 22px; margin-bottom: 12px; opacity: 1; }
+        .content { padding: 40px 30px; text-align: center; position: relative; }
+        .ornament-icon { color: var(--gold); font-size: 20px; margin-bottom: 10px; opacity: 0.8; }
         
         .pre-header {
-            text-transform: uppercase; font-size: 11px; letter-spacing: 3px; color: var(--gold);
-            font-weight: 700; margin-bottom: 15px; display: inline-block;
-            border-bottom: 2px solid var(--gold); padding-bottom: 4px;
+            text-transform: uppercase; font-size: 10px; letter-spacing: 3px; color: var(--gold);
+            font-weight: 700; margin-bottom: 10px; display: inline-block;
+            border-bottom: 1px solid var(--gold); padding-bottom: 3px;
         }
 
-        /* TÍTULO ELEGANTE */
+        /* TÍTULO ELEGANTE (Tamaño original) */
         h1 {
             font-family: 'Cormorant Garamond', serif; color: var(--primary);
-            font-size: 42px; margin: 10px 0 20px 0; font-weight: 700; line-height: 1.1;
+            font-size: 46px; margin: 5px 0 15px 0; font-weight: 700; line-height: 1;
         }
-        @media(min-width: 400px) { h1 { font-size: 50px; } }
+        @media(min-width: 400px) { h1 { font-size: 52px; } } 
         
-        .quote-container { margin: 20px auto; position: relative; max-width: 95%; }
+        .quote-container { margin: 25px auto; position: relative; max-width: 90%; }
+        /* TEXTO MÁS OSCURO */
         .quote-text { 
-            font-family: 'Cormorant Garamond', serif; 
-            font-style: italic; 
-            font-size: 18px; 
-            color: var(--text-main); 
-            line-height: 1.6; 
-            font-weight: 500;
+            font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 19px; 
+            color: var(--text-main); line-height: 1.5; font-weight: 500;
         }
 
         /* Detalles Grid */
         .details-row {
             display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
-            margin: 30px 0; border-top: 1px solid #e5e7eb; border-bottom: 1px solid #e5e7eb;
+            margin: 30px 0; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd;
             padding: 20px 0; align-items: start;
         }
         .detail-group { text-align: center; display: flex; flex-direction: column; align-items: center; }
         .detail-label { 
-            font-size: 10px; text-transform: uppercase; color: var(--text-secondary);
-            letter-spacing: 1px; margin-bottom: 6px; font-weight: 700;
+            font-size: 11px; text-transform: uppercase; color: var(--text-secondary);
+            letter-spacing: 1px; margin-bottom: 6px; font-weight: 600;
         }
         .detail-value { 
             font-family: 'Montserrat', sans-serif; font-weight: 700; 
-            color: var(--primary); font-size: 13px; 
+            color: var(--primary); font-size: 14px; 
             line-height: 1.4; 
         }
-        @media(min-width: 400px) { .detail-value { font-size: 15px; } }
         
         .location-link { text-decoration: none; color: var(--primary); transition: color 0.3s; display: inline-block; }
         .location-link:hover { color: var(--gold); }
         .icon-map { font-size: 12px; vertical-align: middle; display: inline-block; margin-left: 2px; }
 
         /* Botones */
-        .btn-container { display: flex; flex-direction: column; gap: 15px; margin-top: 35px; }
+        .btn-container { display: flex; flex-direction: column; gap: 15px; margin-top: 30px; }
         .btn {
-            border: none; padding: 16px; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700;
-            text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: all 0.3s ease;
-            position: relative; overflow: hidden; display: flex; justify-content: center; align-items: center; gap: 8px;
-            border-radius: 6px; width: 100%;
+            border: none; padding: 16px 20px; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: all 0.4s ease;
+            position: relative; overflow: hidden; display: flex; justify-content: center; align-items: center; gap: 10px;
+            border-radius: 4px;
         }
-        .btn-gold { background: var(--gold-gradient); color: var(--white); box-shadow: 0 4px 15px -3px rgba(197, 160, 89, 0.5); }
-        .btn-gold:active { transform: scale(0.98); }
+        .btn-gold { background: var(--gold-gradient); color: var(--white); box-shadow: 0 10px 20px -5px rgba(197, 160, 89, 0.4); }
+        .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 15px 25px -5px rgba(197, 160, 89, 0.5); }
         
         .btn-secret { background: var(--primary); color: var(--white); border: 1px solid var(--primary-dark); }
-        .btn-secret:active { transform: scale(0.98); }
+        .btn-secret:hover { background: var(--primary-dark); }
 
-        .btn-links { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); font-weight: 700; }
-        .btn-outline:active { background-color: rgba(0,51,102,0.05); }
+        .btn-links { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); font-weight: 600; }
+        .btn-outline:hover { background-color: var(--primary); color: var(--white); }
 
-        .footer { margin-top: 40px; font-size: 11px; color: var(--text-secondary); padding-bottom: 10px; }
-        .signature { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--primary); font-weight: 700; margin-bottom: 2px; }
-        .cargo-text { font-weight: 700; color: var(--primary); letter-spacing: 1px; font-size: 10px; text-transform: uppercase; }
+        .footer { margin-top: 40px; font-size: 11px; color: var(--text-secondary); }
+        .signature { font-family: 'Cormorant Garamond', serif; font-size: 17px; color: var(--primary); font-weight: 700; margin-bottom: 2px; }
+        .cargo-text { font-weight: 600; color: var(--primary); letter-spacing: 1px; font-size: 10px; text-transform: uppercase; }
 
         /* Modales */
-        .modal-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 30, 60, 0.7); backdrop-filter: blur(4px); z-index: 3000; display: none; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s ease; }
+        .modal-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 30, 60, 0.6); backdrop-filter: blur(5px); z-index: 3000; display: none; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.4s ease; }
         .modal-active { display: flex; opacity: 1; }
-        .modal-content { background: #fff; width: 90%; max-width: 450px; padding: 30px 20px; position: relative; box-shadow: 0 25px 50px rgba(0,0,0,0.3); transform: translateY(20px); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); text-align: center; border-top: 5px solid var(--gold); border-radius: 8px; }
+        .modal-content { background: #fff; width: 90%; max-width: 450px; padding: 40px 30px; position: relative; box-shadow: 0 25px 50px rgba(0,0,0,0.2); transform: translateY(20px); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); text-align: center; border-top: 4px solid var(--gold); }
         .modal-active .modal-content { transform: translateY(0); }
-        .close-modal { position: absolute; top: 10px; right: 15px; background: none; border: none; font-size: 28px; color: #999; cursor: pointer; line-height: 1; }
+        .close-modal { position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 24px; color: #999; cursor: pointer; transition: color 0.3s; }
+        .close-modal:hover { color: var(--primary); }
         
         .modal-title { 
-            font-family: 'Cormorant Garamond', serif; font-size: 24px; 
+            font-family: 'Cormorant Garamond', serif; font-size: 26px; 
             color: var(--primary); margin: 0 0 20px; border-bottom: 1px solid #eee; 
-            padding-bottom: 10px; font-weight: 700;
+            padding-bottom: 15px; font-weight: 700;
         }
         
-        .attendees-list { text-align: left; max-height: 300px; overflow-y: auto; margin-bottom: 15px; padding-right: 5px; }
-        .attendee-item { display: flex; align-items: center; padding: 12px 5px; border-bottom: 1px solid #f0f0f0; }
-        .attendee-item::before { content: '•'; color: var(--gold); font-size: 18px; margin-right: 8px; }
-        .attendee-name { font-size: 13px; color: var(--text-body); font-weight: 600; text-transform: uppercase; }
+        .attendees-list { text-align: left; max-height: 250px; overflow-y: auto; margin-bottom: 20px; padding-right: 5px; }
+        .attendee-item { display: flex; align-items: center; padding: 12px; border-bottom: 1px solid #f0f0f0; }
+        .attendee-item:last-child { border-bottom: none; }
+        .attendee-item::before { content: '•'; color: var(--gold); font-size: 20px; margin-right: 10px; line-height: 1; }
+        .attendee-name { font-size: 14px; color: var(--text-body); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
 
         /* Amigo Secreto */
-        .secret-input { width: 100%; padding: 12px; border: 2px solid #e5e7eb; border-radius: 6px; margin-bottom: 15px; font-family: 'Montserrat', sans-serif; text-align: center; font-size: 18px; letter-spacing: 4px; text-transform: uppercase; font-weight: 700; color: var(--primary); }
+        .secret-input-container { transition: opacity 0.5s; }
+        .secret-input { width: 100%; padding: 14px; border: 2px solid #ddd; border-radius: 4px; margin-bottom: 15px; font-family: 'Montserrat', sans-serif; text-align: center; font-size: 18px; letter-spacing: 4px; text-transform: uppercase; font-weight: 700; color: var(--primary); }
         .secret-input:focus { border-color: var(--gold); outline: none; }
-        .secret-result { margin-top: 10px; padding: 20px; background: #fff; border: 2px dashed var(--gold); display: none; border-radius: 8px; }
+        .secret-result { margin-top: 10px; padding: 25px; background: #fff; border: 2px dashed var(--gold); display: none; animation: fadeIn 0.5s; border-radius: 8px; }
         
-        /* Carga */
-        #secretLoadingContainer { display: none; padding: 20px 0; }
-        .loading-text { font-family: 'Montserrat', sans-serif; font-size: 13px; color: var(--text-body); margin-top: 15px; font-weight: 600; animation: pulseText 1.5s infinite; }
-        .spinner { width: 35px; height: 35px; border: 3px solid rgba(197, 160, 89, 0.3); border-left-color: var(--gold); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto; }
+        .secret-greeting { font-family: 'Montserrat', sans-serif; font-size: 16px; color: var(--text-secondary); margin-bottom: 5px; display: block; }
+        .secret-reveal-name { display: block; font-family: 'Cinzel', serif; font-size: 24px; color: var(--primary); margin-top: 10px; font-weight: 700; text-shadow: 0 1px 1px rgba(0,0,0,0.1); }
+        .secret-reveal-city { display: block; font-family: 'Montserrat', sans-serif; font-size: 12px; color: var(--text-secondary); font-weight: 500; margin-top: 5px; text-transform: uppercase; letter-spacing: 1px; }
+        
+        /* ESTILOS DE CARGA FALSA */
+        #secretLoadingContainer { display: none; padding: 30px 0; }
+        .loading-text { font-family: 'Montserrat', sans-serif; font-size: 14px; color: var(--text-body); margin-top: 15px; font-weight: 600; letter-spacing: 1px; animation: pulseText 1.5s infinite; }
+        .spinner { width: 40px; height: 40px; border: 4px solid rgba(197, 160, 89, 0.3); border-left-color: var(--gold); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         @keyframes pulseText { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .timeline-elegant { text-align: left; border-left: 3px solid var(--gold-light); padding-left: 20px; margin-left: 10px; }
-        .t-item { position: relative; margin-bottom: 25px; }
+        /* Etiquetas de precio y secreto */
+        .price-tag {
+            display: inline-block;
+            background-color: #f0f9ff;
+            color: #0369a1;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-top: 10px;
+            border: 1px solid #bae6fd;
+        }
+        
+        .secret-warning {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #888;
+            font-style: italic;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+
+        .timeline-elegant { text-align: left; border-left: 3px solid var(--gold-light); padding-left: 25px; margin-left: 15px; }
+        .t-item { position: relative; margin-bottom: 30px; }
         .t-item:last-child { margin-bottom: 0; }
-        .t-item::before { content: ''; position: absolute; left: -29px; top: 4px; width: 15px; height: 15px; background: var(--white); border: 3px solid var(--gold); border-radius: 50%; }
+        .t-item::before { content: ''; position: absolute; left: -34px; top: 4px; width: 15px; height: 15px; background: var(--white); border: 3px solid var(--gold); border-radius: 50%; }
         .t-time { font-size: 11px; font-weight: 800; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; display: block; }
         .t-desc { font-size: 14px; color: var(--text-body); font-weight: 600; }
+        .icon-svg { width: 18px; height: 18px; stroke-width: 1.5; }
 
     </style>
 </head>
 <body>
 
-    <!-- 1. INTRO (SOBRE) -->
+    <!-- 1. INTRO (SOBRE AZUL ORIGINAL) -->
     <div id="intro-scene">
         <div id="snowContainer"></div>
         <div class="wrapper" id="envelopeWrapper">
@@ -505,7 +531,7 @@
                 <button class="btn btn-gold" style="width: 100%;" onclick="revelarAmigo()">Revelar</button>
             </div>
 
-            <!-- Contenedor de Carga (Fake Loading) -->
+            <!-- Carga -->
             <div id="secretLoadingContainer">
                 <div class="spinner"></div>
                 <p id="loadingText" class="loading-text">Generando sorteo aleatorio...</p>
@@ -518,7 +544,13 @@
                 <span id="secretNameDisplay" style="display:block; font-family:'Cinzel', serif; font-size:20px; color:var(--primary); font-weight:700; margin:8px 0;"></span>
                 <span id="secretCityDisplay" style="display:block; font-size:12px; color:#555; text-transform:uppercase; letter-spacing:1px; font-weight:600;"></span>
                 
-                <div style="margin-top: 20px; font-size: 12px; color: #888; font-style: italic; border-top:1px solid #eee; padding-top:10px;">
+                <div style="margin-top: 15px;">
+                    <span class="price-tag">
+                        <i class="fas fa-tag"></i> Valor del regalo: $20
+                    </span>
+                </div>
+                
+                <div class="secret-warning">
                     <i class="fas fa-lock"></i> Recuerda mantenerlo en secreto.
                 </div>
             </div>
@@ -603,7 +635,6 @@
             for (let i = 0; i < 25; i++) {
                 const flake = document.createElement('div');
                 flake.classList.add('header-flake');
-                // Estilo inline para variedad
                 flake.style.width = (Math.random() * 3 + 2) + 'px';
                 flake.style.height = flake.style.width;
                 flake.style.left = Math.random() * 100 + '%';
@@ -614,7 +645,7 @@
         }
 
         createSnowflakes();
-        createHeaderSnow(); // Iniciar nieve del header
+        createHeaderSnow();
 
         // 2. APERTURA AUTOMÁTICA
         window.onload = function() {
@@ -649,13 +680,10 @@
                 modal.style.display = 'flex';
                 modal.offsetHeight; 
                 modal.classList.add('modal-active');
-                
-                // Reset de amigo secreto
                 if(id === 'modal-amigo-secreto') {
                     const container = document.getElementById('secretInputContainer');
                     const loading = document.getElementById('secretLoadingContainer');
                     const result = document.getElementById('secretResult');
-                    
                     if (container.style.display !== 'none' && loading.style.display === 'none' && result.style.display === 'none') {
                         document.getElementById('secretCodeInput').value = '';
                     }
@@ -663,7 +691,7 @@
             }
         }
 
-        // 4. LÓGICA AMIGO SECRETO (Actualizada con Ciudades)
+        // 4. LÓGICA AMIGO SECRETO
         const secretSantaData = [
             { code: "7391", name: "Orejuela Intriago Nancy Gisela", target: "Castillo Bermudez Tania Elizabeth", city: "PORTOVIEJO" },
             { code: "2845", name: "Arriaga Muñoz Lenny Noraida", target: "Berrú Tinizaray Jessica Marcela", city: "LA CONCORDIA" },
@@ -717,6 +745,7 @@
                     nameDisplay.innerText = found.target;
                     nameDisplay.style.color = '#003366'; 
                     cityDisplay.innerText = `Centro Universitario de ${found.city}`;
+                    
                 }, 5000);
             } else {
                 resultBox.style.display = 'block';
