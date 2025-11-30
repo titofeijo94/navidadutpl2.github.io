@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>UTPL - Cena de Navidad</title>
     
     <!-- Fuentes -->
@@ -15,23 +15,21 @@
 
     <style>
         :root {
-            /* --- VARIABLES DEL INTRO (SOBRE) --- */
+            /* --- VARIABLES --- */
             --utpl-navy: #002855;
             --utpl-navy-dark: #001a38;
             --gold-leaf: #d4af37;
             --gold-shimmer: #f9e59e;
             --bg-gradient-inner: #050a14;
 
-            /* --- VARIABLES DE LA INVITACIÓN --- */
             --primary: #003366; 
             --primary-dark: #001a33;
             --gold: #C5A059;   
             --gold-light: #E5C585;
             --gold-gradient: linear-gradient(135deg, #C5A059 0%, #E5C585 50%, #B08D55 100%);
             --white: #ffffff;
-            --bg-body: #f3f4f6;
+            --bg-body: #f3f4f6; /* Color base para el patrón */
             
-            /* TEXTOS OSCUROS */
             --text-main: #1a1a1a;       
             --text-body: #333333;       
             --text-secondary: #555555;  
@@ -44,11 +42,11 @@
             background: radial-gradient(circle at center, #1a2a40 0%, #050a14 100%);
             margin: 0;
             min-height: 100vh;
-            overflow: hidden; 
+            overflow: hidden; /* Se desbloquea vía JS */
         }
 
         /* =========================================
-           1. ESTILOS DEL INTRO (SOBRE)
+           1. INTRO (SOBRE)
            ========================================= */
         #intro-scene {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -58,33 +56,18 @@
             transition: opacity 1.5s ease, visibility 1.5s;
         }
 
-        /* Estilo base para copos de nieve (Intro) */
         .snowflake {
-            position: absolute; color: rgba(255, 255, 255, 0.3); font-size: 1rem;
+            position: absolute; color: rgba(255, 255, 255, 0.5); font-size: 1rem;
             top: -50px; animation: fall linear infinite; z-index: 0; pointer-events: none;
         }
-        
-        /* Estilo específico para copos del Header */
-        .header-snowflake {
-            position: absolute; color: rgba(255, 255, 255, 0.2); font-size: 0.8rem;
-            top: -20px; animation: fallHeader linear infinite; z-index: 1; pointer-events: none;
-        }
-
         @keyframes fall {
             0% { transform: translateY(0) translateX(0); opacity: 0; }
-            10% { opacity: 0.8; }
+            10% { opacity: 0.9; }
             100% { transform: translateY(110vh) translateX(20px); opacity: 0; }
-        }
-        
-        /* Animación para el header (distancia más corta) */
-        @keyframes fallHeader {
-            0% { transform: translateY(0) translateX(0); opacity: 0; }
-            20% { opacity: 0.6; }
-            100% { transform: translateY(200px) translateX(10px); opacity: 0; }
         }
 
         .wrapper {
-            position: relative; width: 340px; height: 240px; z-index: 10;
+            position: relative; width: 300px; height: 200px; z-index: 10;
             transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
         }
         @media (min-width: 768px) { .wrapper { width: 520px; height: 340px; } }
@@ -112,45 +95,46 @@
         .wrapper.open .magic-light { opacity: 1; }
 
         .flap { position: absolute; width: 0; height: 0; border-style: solid; pointer-events: none; }
+        
         .flap-left {
             top: 0; left: 0; bottom: 0;
-            border-width: 120px 0 120px 170px; 
+            border-width: 100px 0 100px 150px; 
             border-color: transparent transparent transparent var(--utpl-navy);
             z-index: 20; filter: brightness(1.1);
         }
         .flap-right {
             top: 0; right: 0; bottom: 0;
-            border-width: 120px 170px 120px 0; 
+            border-width: 100px 150px 100px 0; 
             border-color: transparent var(--utpl-navy-dark) transparent transparent;
             z-index: 20;
         }
         .flap-bottom {
             bottom: 0; left: 0;
-            border-width: 0 170px 130px 170px; 
+            border-width: 0 150px 110px 150px; 
             border-color: transparent transparent var(--utpl-navy) transparent;
             z-index: 21; filter: drop-shadow(0 -2px 5px rgba(0,0,0,0.3));
         }
-        @media (min-width: 768px) {
-            .flap-left { border-width: 170px 0 170px 270px; }
-            .flap-right { border-width: 170px 270px 170px 0; }
-            .flap-bottom { border-width: 0 260px 175px 260px; }
-        }
-
         .flap-top {
             top: 0; left: 0;
-            border-width: 130px 170px 0 170px; 
+            border-width: 110px 150px 0 150px; 
             border-color: var(--utpl-navy-dark) transparent transparent transparent;
             z-index: 30; transform-origin: top;
             transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
             filter: drop-shadow(0 5px 5px rgba(0,0,0,0.3));
         }
-        @media (min-width: 768px) { .flap-top { border-width: 180px 260px 0 260px; } }
+
+        @media (min-width: 768px) {
+            .flap-left { border-width: 170px 0 170px 270px; }
+            .flap-right { border-width: 170px 270px 170px 0; }
+            .flap-bottom { border-width: 0 260px 175px 260px; }
+            .flap-top { border-width: 180px 260px 0 260px; }
+        }
 
         /* Sello */
         .seal {
             position: absolute;
-            top: -100px; left: 50%; transform: translate(-50%, 60%);
-            width: 70px; height: 70px;
+            top: -90px; left: 50%; transform: translate(-50%, 60%);
+            width: 60px; height: 60px;
             border-radius: 50%;
             background: radial-gradient(circle at 30% 30%, #e6cf8b, #bfa058, #7a5e20);
             box-shadow: 0 4px 8px rgba(0,0,0,0.5), inset 0 2px 3px rgba(255,255,255,0.4);
@@ -167,10 +151,11 @@
         }
         .seal span {
             position: relative; z-index: 10; 
-            font-family: 'Cinzel', serif; font-weight: 700; font-size: 1.1rem; 
+            font-family: 'Cinzel', serif; font-weight: 700; font-size: 0.9rem; 
             color: #5c4213; text-shadow: 0 1px 0 rgba(255,255,255,0.4);
             letter-spacing: 1px;
         }
+        @media (min-width: 768px) { .seal span { font-size: 1.1rem; } }
 
         .wrapper.open .flap-top { transform: rotateX(180deg); z-index: 1; }
         .wrapper.zoom-out { transform: scale(3); opacity: 0; }
@@ -180,178 +165,197 @@
            ========================================= */
         #final-interface {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            display: flex; justify-content: center; align-items: center;
+            display: block; 
             opacity: 0; visibility: hidden;
             transition: opacity 2s ease;
             z-index: 100;
             background-color: var(--bg-body);
+            /* FONDO RESTAURADO: Patrón de puntos dorados */
             background-image: radial-gradient(var(--gold-light) 1px, transparent 1px);
             background-size: 30px 30px;
-            overflow-y: auto; padding: 20px 0;
+            overflow-y: auto; 
+            -webkit-overflow-scrolling: touch; 
         }
         #final-interface.active { opacity: 1; visibility: visible; }
 
-        .card-wrapper { padding: 10px; width: 100%; display: flex; justify-content: center; min-height: 100%; align-items: center; }
+        /* Wrapper principal de la tarjeta: Flexbox inteligente */
+        .card-wrapper { 
+            width: 100%; 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column;
+            align-items: center; 
+            padding: 20px 15px; 
+        }
+        
+        @media (min-width: 768px) {
+            .card-wrapper {
+                justify-content: center;
+                padding: 40px 0;
+            }
+        }
         
         .card {
             width: 100%; max-width: 500px; 
             background-color: var(--white);
             position: relative;
-            box-shadow: 0 30px 60px -10px rgba(0, 51, 102, 0.25);
-            overflow: hidden; border-radius: 4px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden; 
+            border-radius: 8px;
             border: 1px solid rgba(197, 160, 89, 0.3);
-            animation: slideUp 1s ease-out forwards;
-            opacity: 0; transform: translateY(50px);
+            animation: slideUp 1.2s ease-out forwards;
+            opacity: 0; transform: translateY(60px);
+            margin: 0 auto; 
         }
         @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
 
-        /* Header */
+        /* HEADER CON NIEVE */
         .header {
             background-color: var(--primary);
-            padding: 40px 30px; text-align: center; position: relative;
-            /* Asegurar que el contenedor de nieve funcione aquí */
-            overflow: hidden; 
+            padding: 30px 20px; text-align: center; position: relative;
+            overflow: hidden; /* Importante para contener la nieve */
         }
         
-        /* Contenedor de nieve específico del header */
-        #headerSnow {
+        /* Contenedor específico para la nieve del header */
+        #headerSnowContainer {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none; z-index: 1;
         }
-
-        .logo-container {
-            position: relative; z-index: 10; /* Texto encima de la nieve */
+        
+        /* Copos del header */
+        .header-flake {
+            position: absolute; background: white; border-radius: 50%; opacity: 0.6;
+            animation: headerFall linear infinite;
+        }
+        @keyframes headerFall {
+            0% { transform: translateY(-10px) translateX(0); opacity: 0; }
+            20% { opacity: 0.8; }
+            100% { transform: translateY(150px) translateX(10px); opacity: 0; }
         }
 
+        .logo-container {
+            position: relative; z-index: 10; /* Encima de la nieve */
+        }
         .logo-utpl {
-            font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 28px;
-            color: var(--white); letter-spacing: 2px; text-transform: uppercase;
+            font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 32px;
+            color: var(--white); letter-spacing: 3px; text-transform: uppercase;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
         .logo-sub {
             display: block; font-family: 'Cormorant Garamond', serif; font-size: 16px;
-            color: var(--gold-light); letter-spacing: 4px; margin-top: 5px; font-style: italic;
+            color: var(--gold-light); letter-spacing: 5px; margin-top: 5px; font-style: italic;
         }
-        .gold-divider { height: 3px; background: var(--gold-gradient); width: 100%; }
+        .gold-divider { height: 4px; background: var(--gold-gradient); width: 100%; }
 
         /* Contenido */
-        .content { padding: 40px 30px; text-align: center; position: relative; }
-        .ornament-icon { color: var(--gold); font-size: 20px; margin-bottom: 10px; opacity: 0.8; }
+        .content { padding: 30px 20px; text-align: center; position: relative; }
+        @media (min-width: 768px) { .content { padding: 40px 40px; } }
+
+        .ornament-icon { color: var(--gold); font-size: 22px; margin-bottom: 12px; opacity: 1; }
         
         .pre-header {
-            text-transform: uppercase; font-size: 10px; letter-spacing: 3px; color: var(--gold);
-            font-weight: 700; margin-bottom: 10px; display: inline-block;
-            border-bottom: 1px solid var(--gold); padding-bottom: 3px;
+            text-transform: uppercase; font-size: 11px; letter-spacing: 3px; color: var(--gold);
+            font-weight: 700; margin-bottom: 15px; display: inline-block;
+            border-bottom: 2px solid var(--gold); padding-bottom: 4px;
         }
 
-        /* TÍTULO RESTAURADO (Tamaño elegante) */
+        /* TÍTULO ELEGANTE */
         h1 {
             font-family: 'Cormorant Garamond', serif; color: var(--primary);
-            font-size: 46px; 
-            margin: 5px 0 15px 0; font-weight: 700; line-height: 1;
+            font-size: 42px; margin: 10px 0 20px 0; font-weight: 700; line-height: 1.1;
         }
-        @media(min-width: 400px) { h1 { font-size: 52px; } } 
+        @media(min-width: 400px) { h1 { font-size: 50px; } }
         
-        .quote-container { margin: 25px auto; position: relative; max-width: 90%; }
-        /* TEXTO MÁS OSCURO */
+        .quote-container { margin: 20px auto; position: relative; max-width: 95%; }
         .quote-text { 
             font-family: 'Cormorant Garamond', serif; 
             font-style: italic; 
-            font-size: 19px; 
+            font-size: 18px; 
             color: var(--text-main); 
-            line-height: 1.5; 
+            line-height: 1.6; 
             font-weight: 500;
         }
 
         /* Detalles Grid */
         .details-row {
             display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
-            margin: 30px 0; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd;
+            margin: 30px 0; border-top: 1px solid #e5e7eb; border-bottom: 1px solid #e5e7eb;
             padding: 20px 0; align-items: start;
         }
         .detail-group { text-align: center; display: flex; flex-direction: column; align-items: center; }
         .detail-label { 
-            font-size: 11px; text-transform: uppercase; color: var(--text-secondary);
-            letter-spacing: 1px; margin-bottom: 6px; font-weight: 600;
+            font-size: 10px; text-transform: uppercase; color: var(--text-secondary);
+            letter-spacing: 1px; margin-bottom: 6px; font-weight: 700;
         }
         .detail-value { 
             font-family: 'Montserrat', sans-serif; font-weight: 700; 
-            color: var(--primary); font-size: 14px; 
+            color: var(--primary); font-size: 13px; 
             line-height: 1.4; 
         }
+        @media(min-width: 400px) { .detail-value { font-size: 15px; } }
         
         .location-link { text-decoration: none; color: var(--primary); transition: color 0.3s; display: inline-block; }
         .location-link:hover { color: var(--gold); }
         .icon-map { font-size: 12px; vertical-align: middle; display: inline-block; margin-left: 2px; }
 
         /* Botones */
-        .btn-container { display: flex; flex-direction: column; gap: 15px; margin-top: 30px; }
+        .btn-container { display: flex; flex-direction: column; gap: 15px; margin-top: 35px; }
         .btn {
-            border: none; padding: 16px 20px; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700;
-            text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: all 0.4s ease;
-            position: relative; overflow: hidden; display: flex; justify-content: center; align-items: center; gap: 10px;
-            border-radius: 4px;
+            border: none; padding: 16px; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: all 0.3s ease;
+            position: relative; overflow: hidden; display: flex; justify-content: center; align-items: center; gap: 8px;
+            border-radius: 6px; width: 100%;
         }
-        .btn-gold { background: var(--gold-gradient); color: var(--white); box-shadow: 0 10px 20px -5px rgba(197, 160, 89, 0.4); }
-        .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 15px 25px -5px rgba(197, 160, 89, 0.5); }
+        .btn-gold { background: var(--gold-gradient); color: var(--white); box-shadow: 0 4px 15px -3px rgba(197, 160, 89, 0.5); }
+        .btn-gold:active { transform: scale(0.98); }
         
         .btn-secret { background: var(--primary); color: var(--white); border: 1px solid var(--primary-dark); }
-        .btn-secret:hover { background: var(--primary-dark); }
+        .btn-secret:active { transform: scale(0.98); }
 
-        .btn-links { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); font-weight: 600; }
-        .btn-outline:hover { background-color: var(--primary); color: var(--white); }
+        .btn-links { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); font-weight: 700; }
+        .btn-outline:active { background-color: rgba(0,51,102,0.05); }
 
-        .footer { margin-top: 40px; font-size: 11px; color: var(--text-secondary); }
-        .signature { font-family: 'Cormorant Garamond', serif; font-size: 17px; color: var(--primary); font-weight: 700; margin-bottom: 2px; }
-        .cargo-text { font-weight: 600; color: var(--primary); letter-spacing: 1px; font-size: 10px; text-transform: uppercase; }
+        .footer { margin-top: 40px; font-size: 11px; color: var(--text-secondary); padding-bottom: 10px; }
+        .signature { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--primary); font-weight: 700; margin-bottom: 2px; }
+        .cargo-text { font-weight: 700; color: var(--primary); letter-spacing: 1px; font-size: 10px; text-transform: uppercase; }
 
         /* Modales */
-        .modal-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 30, 60, 0.6); backdrop-filter: blur(5px); z-index: 3000; display: none; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.4s ease; }
+        .modal-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 30, 60, 0.7); backdrop-filter: blur(4px); z-index: 3000; display: none; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s ease; }
         .modal-active { display: flex; opacity: 1; }
-        .modal-content { background: #fff; width: 90%; max-width: 450px; padding: 40px 30px; position: relative; box-shadow: 0 25px 50px rgba(0,0,0,0.2); transform: translateY(20px); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); text-align: center; border-top: 4px solid var(--gold); }
+        .modal-content { background: #fff; width: 90%; max-width: 450px; padding: 30px 20px; position: relative; box-shadow: 0 25px 50px rgba(0,0,0,0.3); transform: translateY(20px); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); text-align: center; border-top: 5px solid var(--gold); border-radius: 8px; }
         .modal-active .modal-content { transform: translateY(0); }
-        .close-modal { position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 24px; color: #999; cursor: pointer; transition: color 0.3s; }
-        .close-modal:hover { color: var(--primary); }
+        .close-modal { position: absolute; top: 10px; right: 15px; background: none; border: none; font-size: 28px; color: #999; cursor: pointer; line-height: 1; }
         
         .modal-title { 
-            font-family: 'Cormorant Garamond', serif; font-size: 26px; 
+            font-family: 'Cormorant Garamond', serif; font-size: 24px; 
             color: var(--primary); margin: 0 0 20px; border-bottom: 1px solid #eee; 
-            padding-bottom: 15px; font-weight: 700;
+            padding-bottom: 10px; font-weight: 700;
         }
         
-        /* Lista Solo Nombres (Negrita) */
-        .attendees-list { text-align: left; max-height: 250px; overflow-y: auto; margin-bottom: 20px; padding-right: 5px; }
-        .attendee-item { display: flex; align-items: center; padding: 12px; border-bottom: 1px solid #f0f0f0; }
-        .attendee-item:last-child { border-bottom: none; }
-        .attendee-item::before { content: '•'; color: var(--gold); font-size: 20px; margin-right: 10px; line-height: 1; }
-        .attendee-name { font-size: 14px; color: var(--text-body); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+        .attendees-list { text-align: left; max-height: 300px; overflow-y: auto; margin-bottom: 15px; padding-right: 5px; }
+        .attendee-item { display: flex; align-items: center; padding: 12px 5px; border-bottom: 1px solid #f0f0f0; }
+        .attendee-item::before { content: '•'; color: var(--gold); font-size: 18px; margin-right: 8px; }
+        .attendee-name { font-size: 13px; color: var(--text-body); font-weight: 600; text-transform: uppercase; }
 
         /* Amigo Secreto */
-        .secret-input-container { transition: opacity 0.5s; }
-        .secret-input { width: 100%; padding: 14px; border: 2px solid #ddd; border-radius: 4px; margin-bottom: 15px; font-family: 'Montserrat', sans-serif; text-align: center; font-size: 18px; letter-spacing: 4px; text-transform: uppercase; font-weight: 700; color: var(--primary); }
+        .secret-input { width: 100%; padding: 12px; border: 2px solid #e5e7eb; border-radius: 6px; margin-bottom: 15px; font-family: 'Montserrat', sans-serif; text-align: center; font-size: 18px; letter-spacing: 4px; text-transform: uppercase; font-weight: 700; color: var(--primary); }
         .secret-input:focus { border-color: var(--gold); outline: none; }
-        .secret-result { margin-top: 10px; padding: 25px; background: #fff; border: 2px dashed var(--gold); display: none; animation: fadeIn 0.5s; border-radius: 8px; }
+        .secret-result { margin-top: 10px; padding: 20px; background: #fff; border: 2px dashed var(--gold); display: none; border-radius: 8px; }
         
-        .secret-greeting { font-family: 'Montserrat', sans-serif; font-size: 16px; color: var(--text-secondary); margin-bottom: 5px; display: block; }
-        .secret-reveal-name { display: block; font-family: 'Cinzel', serif; font-size: 24px; color: var(--primary); margin-top: 10px; font-weight: 700; text-shadow: 0 1px 1px rgba(0,0,0,0.1); }
-        .secret-reveal-city { display: block; font-family: 'Montserrat', sans-serif; font-size: 12px; color: var(--text-secondary); font-weight: 500; margin-top: 5px; text-transform: uppercase; letter-spacing: 1px; }
-        
-        /* ESTILOS DE CARGA FALSA */
-        #secretLoadingContainer { display: none; padding: 30px 0; }
-        .loading-text { font-family: 'Montserrat', sans-serif; font-size: 14px; color: var(--text-body); margin-top: 15px; font-weight: 600; letter-spacing: 1px; animation: pulseText 1.5s infinite; }
-        .spinner { width: 40px; height: 40px; border: 4px solid rgba(197, 160, 89, 0.3); border-left-color: var(--gold); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto; }
-        
+        /* Carga */
+        #secretLoadingContainer { display: none; padding: 20px 0; }
+        .loading-text { font-family: 'Montserrat', sans-serif; font-size: 13px; color: var(--text-body); margin-top: 15px; font-weight: 600; animation: pulseText 1.5s infinite; }
+        .spinner { width: 35px; height: 35px; border: 3px solid rgba(197, 160, 89, 0.3); border-left-color: var(--gold); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         @keyframes pulseText { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .timeline-elegant { text-align: left; border-left: 3px solid var(--gold-light); padding-left: 25px; margin-left: 15px; }
-        .t-item { position: relative; margin-bottom: 30px; }
+        .timeline-elegant { text-align: left; border-left: 3px solid var(--gold-light); padding-left: 20px; margin-left: 10px; }
+        .t-item { position: relative; margin-bottom: 25px; }
         .t-item:last-child { margin-bottom: 0; }
-        .t-item::before { content: ''; position: absolute; left: -34px; top: 4px; width: 15px; height: 15px; background: var(--white); border: 3px solid var(--gold); border-radius: 50%; }
+        .t-item::before { content: ''; position: absolute; left: -29px; top: 4px; width: 15px; height: 15px; background: var(--white); border: 3px solid var(--gold); border-radius: 50%; }
         .t-time { font-size: 11px; font-weight: 800; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; display: block; }
         .t-desc { font-size: 14px; color: var(--text-body); font-weight: 600; }
-        .icon-svg { width: 18px; height: 18px; stroke-width: 1.5; }
 
     </style>
 </head>
@@ -382,10 +386,9 @@
         <div class="card-wrapper">
             <div class="card">
                 
-                <!-- Header CON NIEVE -->
+                <!-- Header CON NIEVE REAL -->
                 <div class="header">
-                    <!-- Contenedor de nieve para el Header -->
-                    <div id="headerSnow"></div>
+                    <div id="headerSnowContainer"></div> <!-- Nieve aquí -->
                     <div class="logo-container">
                         <div class="logo-utpl">UTPL</div>
                         <span class="logo-sub">Zona 4</span>
@@ -431,7 +434,7 @@
                         <!-- Nómina -->
                         <button class="btn btn-gold" onclick="toggleModal('modal-nomina')">
                             Ver Nómina de Invitados
-                            <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                         </button>
 
                         <!-- Botón AMIGO SECRETO -->
@@ -495,7 +498,7 @@
             
             <!-- Contenedor del Formulario -->
             <div id="secretInputContainer">
-                <p style="font-size: 15px; color: var(--text-body); margin-bottom: 20px;">
+                <p style="font-size: 14px; color: var(--text-body); margin-bottom: 15px;">
                     Ingresa tu código personal para revelar tu amigo secreto:
                 </p>
                 <input type="text" id="secretCodeInput" class="secret-input" placeholder="XXXX" maxlength="4" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
@@ -510,12 +513,12 @@
             
             <!-- Resultado -->
             <div id="secretResult" class="secret-result">
-                <span id="secretGreeting" class="secret-greeting"></span>
+                <span id="secretGreeting" style="display:block; font-size:14px; color:#555; margin-bottom:5px;"></span>
                 <span style="font-size: 12px; text-transform: uppercase; color: #777; font-weight: 700;">El sistema ha seleccionado a:</span>
-                <span id="secretNameDisplay" class="secret-reveal-name"></span>
-                <span id="secretCityDisplay" class="secret-reveal-city"></span>
+                <span id="secretNameDisplay" style="display:block; font-family:'Cinzel', serif; font-size:20px; color:var(--primary); font-weight:700; margin:8px 0;"></span>
+                <span id="secretCityDisplay" style="display:block; font-size:12px; color:#555; text-transform:uppercase; letter-spacing:1px; font-weight:600;"></span>
                 
-                <div style="margin-top: 20px; font-size: 13px; color: #888; font-style: italic;">
+                <div style="margin-top: 20px; font-size: 12px; color: #888; font-style: italic; border-top:1px solid #eee; padding-top:10px;">
                     <i class="fas fa-lock"></i> Recuerda mantenerlo en secreto.
                 </div>
             </div>
@@ -527,10 +530,10 @@
         <div class="modal-content" onclick="event.stopPropagation()">
             <button class="close-modal" onclick="toggleModal('modal-dress')">&times;</button>
             <h3 class="modal-title">Código de Vestimenta</h3>
-            <div style="text-align: left; padding: 0 10px;">
+            <div style="text-align: left; padding: 0 5px;">
                 <div style="display: flex; gap: 15px; margin-bottom: 25px; align-items: start;">
-                    <div style="background: #f4f6f8; padding: 12px; border-radius: 50%; color: var(--primary); min-width: 48px;">
-                       <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.38 3.4a1.6 1.6 0 0 1 .4 1.6l-1.9 6.22a2.33 2.33 0 0 1-2.2 1.66h-9.36a2.33 2.33 0 0 1-2.2-1.66L3.22 5a1.6 1.6 0 0 1 1.76-2.08l1.63.26A2.3 2.3 0 0 0 8.86 2h6.28a2.3 2.3 0 0 0 2.25 1.18z"></path></svg>
+                    <div style="background: #f4f6f8; padding: 10px; border-radius: 50%; color: var(--primary); min-width: 45px;">
+                       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.38 3.4a1.6 1.6 0 0 1 .4 1.6l-1.9 6.22a2.33 2.33 0 0 1-2.2 1.66h-9.36a2.33 2.33 0 0 1-2.2-1.66L3.22 5a1.6 1.6 0 0 1 1.76-2.08l1.63.26A2.3 2.3 0 0 0 8.86 2h6.28a2.3 2.3 0 0 0 2.25 1.18z"></path></svg>
                     </div>
                     <div>
                         <h4 style="margin: 0; color: var(--primary); font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 700;">Gama de Colores</h4>
@@ -538,8 +541,8 @@
                     </div>
                 </div>
                 <div style="display: flex; gap: 15px; align-items: start;">
-                     <div style="background: #fff9e6; padding: 12px; border-radius: 50%; color: var(--gold); min-width: 48px;">
-                       <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 22v-6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v6"/><path d="M4 16c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+                     <div style="background: #fff9e6; padding: 10px; border-radius: 50%; color: var(--gold); min-width: 45px;">
+                       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 22v-6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v6M4 16c0-4.4 3.6-8 8-8s8 3.6 8 8"></path></svg>
                     </div>
                     <div>
                         <h4 style="margin: 0; color: var(--primary); font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 700;">Calzado Cómodo</h4>
@@ -563,7 +566,6 @@
                 <div class="t-item"><span class="t-time">12:00</span><div class="t-desc">Check-out</div></div>
             </div>
             
-            <!-- Nota sobre instalaciones REFORMULADA -->
             <div style="margin-top: 25px; padding-top: 15px; border-top: 1px solid #eee; text-align: left;">
                 <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5; font-style: italic;">
                     <span style="color: var(--gold); font-weight: 700; text-transform: uppercase;">Nota:</span> 
@@ -574,9 +576,8 @@
     </div>
 
     <script>
-        // 1. NIEVE
+        // 1. NIEVE INTRO
         const snowContainer = document.getElementById('snowContainer');
-        const headerSnow = document.getElementById('headerSnow'); // Contenedor para el header
         const chars = ['❄', '❅', '❆', '•'];
         
         function createSnowflakes() {
@@ -597,18 +598,17 @@
         
         function createHeaderSnow() {
             // Nieve en el header azul
-            const container = document.getElementById('headerSnow');
+            const container = document.getElementById('headerSnowContainer');
             if(!container) return;
-            for (let i = 0; i < 20; i++) {
+            for (let i = 0; i < 25; i++) {
                 const flake = document.createElement('div');
-                flake.classList.add('header-snowflake');
-                flake.textContent = chars[Math.floor(Math.random() * chars.length)];
+                flake.classList.add('header-flake');
+                // Estilo inline para variedad
+                flake.style.width = (Math.random() * 3 + 2) + 'px';
+                flake.style.height = flake.style.width;
                 flake.style.left = Math.random() * 100 + '%';
-                // Variación para que se vea natural
-                flake.style.fontSize = (Math.random() * 8 + 8) + 'px';
-                flake.style.animationDuration = (Math.random() * 3 + 3) + 's'; // Más rápido porque es corto
-                flake.style.animationDelay = (Math.random() * 3) + 's';
-                flake.style.opacity = Math.random() * 0.3 + 0.1;
+                flake.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                flake.style.animationDelay = (Math.random() * 2) + 's';
                 container.appendChild(flake);
             }
         }
@@ -630,6 +630,8 @@
                         introScene.style.opacity = 0;
                         introScene.style.visibility = 'hidden';
                         finalInterface.classList.add('active');
+                        // Cambiar fondo al body al final para que coincida con el patrón
+                        document.body.style.backgroundColor = '#f3f4f6'; 
                         document.body.style.background = '#f3f4f6';
                         document.body.style.overflowY = 'auto'; 
                     }, 800);
@@ -637,7 +639,7 @@
             }, 2000); 
         };
 
-        // 3. LÓGICA DE MODALES
+        // 3. MODALES
         function toggleModal(id) {
             const modal = document.getElementById(id);
             if (modal.classList.contains('modal-active')) {
@@ -648,9 +650,8 @@
                 modal.offsetHeight; 
                 modal.classList.add('modal-active');
                 
-                // Reset inputs si es modal secreto (SOLO SI NO SE HA REVELADO AÚN)
+                // Reset de amigo secreto
                 if(id === 'modal-amigo-secreto') {
-                    // Si ya se reveló (input oculto), no resetear
                     const container = document.getElementById('secretInputContainer');
                     const loading = document.getElementById('secretLoadingContainer');
                     const result = document.getElementById('secretResult');
@@ -699,35 +700,25 @@
             const found = secretSantaData.find(p => p.code === code);
 
             if (found) {
-                // 1. Ocultar formulario
                 inputContainer.style.display = 'none';
-                
-                // 2. Mostrar carga
                 loadingBox.style.display = 'block';
                 
-                // Secuencia de textos de carga (Total 5 segundos)
                 setTimeout(() => { loadingText.innerText = "Conectando con el servidor..."; }, 1500);
                 setTimeout(() => { loadingText.innerText = "Verificando lista de invitados..."; }, 3000); 
                 setTimeout(() => { loadingText.innerText = "Asignando amigo secreto..."; }, 4000);
                 
-                // 3. Finalizar y mostrar resultado después de 5 segundos
                 setTimeout(() => {
                     loadingBox.style.display = 'none';
-                    
-                    // Mostrar Resultado
                     resultBox.style.display = 'block';
                     resultBox.style.backgroundColor = '#fdfdfd'; 
-                    resultBox.style.borderColor = '#C5A059'; // Dorado
+                    resultBox.style.borderColor = '#C5A059'; 
                     
                     greetingDisplay.innerText = `Hola ${found.name},`;
                     nameDisplay.innerText = found.target;
-                    nameDisplay.style.color = '#003366'; // Azul UTPL
+                    nameDisplay.style.color = '#003366'; 
                     cityDisplay.innerText = `Centro Universitario de ${found.city}`;
-                    
                 }, 5000);
-                
             } else {
-                // ERROR (Sin animación, inmediato)
                 resultBox.style.display = 'block';
                 resultBox.style.backgroundColor = '#fef2f2'; 
                 resultBox.style.borderColor = '#ef4444';
